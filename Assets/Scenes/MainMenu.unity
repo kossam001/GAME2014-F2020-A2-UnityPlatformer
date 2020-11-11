@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 627453227}
   - component: {fileID: 627453226}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: 'InstructionsButton '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -369,8 +369,9 @@ GameObject:
   - component: {fileID: 1434454894}
   - component: {fileID: 1434454893}
   - component: {fileID: 1434454892}
+  - component: {fileID: 1434454895}
   m_Layer: 5
-  m_Name: Button
+  m_Name: StartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -488,6 +489,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1434454890}
   m_CullTransparentMesh: 0
+--- !u!114 &1434454895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434454890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acf1e297f31e46c4a9825ee3f9d03132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: 
 --- !u!1 &1435560084
 GameObject:
   m_ObjectHideFlags: 0
