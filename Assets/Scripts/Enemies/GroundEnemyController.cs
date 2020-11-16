@@ -9,7 +9,7 @@ public class GroundEnemyController : MonoBehaviour
 
     private Rigidbody2D rigidbody2d;
 
-    public bool isPlatformEdge;
+    public bool isTherePlatform;
     public float speed;
     public float direction;
 
@@ -29,14 +29,14 @@ public class GroundEnemyController : MonoBehaviour
 
     private void LookForPlatformEdge()
     {
-        isPlatformEdge = Physics2D.Linecast(transform.position, lineEndpoint.position, layerMask);
+        isTherePlatform = Physics2D.Linecast(transform.position, lineEndpoint.position, layerMask);
 
         Debug.DrawLine(transform.position, lineEndpoint.position, Color.green);
     }
 
     private void Move()
     {
-        if (isPlatformEdge)
+        if (isTherePlatform)
         {
             rigidbody2d.AddForce(Vector2.left * speed * Time.deltaTime * direction);
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    public Vector2 knockbackForce = new Vector2(500,500);
+    public Vector2 knockbackForce = new Vector2(100,0);
     public Vector2 direction = new Vector2(1, 1);
     public float maxActiveTime = 0.5f;
 

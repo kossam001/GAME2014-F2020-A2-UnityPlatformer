@@ -17145,8 +17145,8 @@ PolygonCollider2D:
       - {x: -0.1747979, y: 0.32457304}
       - {x: -0.015625417, y: -0.24198881}
       - {x: -0.01224339, y: -0.93846184}
-      - {x: 0.2720974, y: -0.5783421}
-      - {x: 0.23860681, y: 0.0151717365}
+      - {x: 0.1670519, y: -0.65082985}
+      - {x: 0.1510691, y: -0.04523462}
 --- !u!114 &928309134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17159,7 +17159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22069114d33af5549ad208eec6c80928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackForce: {x: 500, y: 500}
+  knockbackForce: {x: 1000, y: 0}
   direction: {x: 1, y: 1}
   maxActiveTime: 0.5
 --- !u!1 &943201869
