@@ -26,8 +26,8 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rigidbody2d;
 
-    private bool isGrounded;
-    private bool isJumping;
+    public bool isGrounded;
+    public bool isJumping;
 
     // Start is called before the first frame update
     void Start()
@@ -91,6 +91,23 @@ public class PlayerController : MonoBehaviour
         else if (isGrounded)
         {
             botAnimator.SetBool("IsGrounded", false);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Platform"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Platform"))
+        {
+            isGrounded = false;
+            isJumping = false;
         }
     }
 }
