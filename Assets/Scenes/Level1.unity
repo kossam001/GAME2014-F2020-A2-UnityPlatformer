@@ -12896,7 +12896,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystick: {fileID: 192101810}
   horizontalSensitivity: 0.1
-  horizontalForce: 0
+  horizontalForce: 300
+  verticalSensitivity: 0.1
+  verticalForce: 500
   arm: {fileID: 568537683}
   weapon: {fileID: 384109961}
   upperBody: {fileID: 1295411268}
