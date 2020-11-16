@@ -102,7 +102,9 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
-
+        armAnimator.SetTrigger("Attack");
+        weaponAnimator.SetTrigger("Attack");
+        topAnimator.SetTrigger("Attack");
     }
 
     private void OnCollisionEnter2D(Collision2D other)
