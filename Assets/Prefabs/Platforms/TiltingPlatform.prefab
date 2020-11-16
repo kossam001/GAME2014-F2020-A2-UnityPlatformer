@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2863059645232590816}
   - component: {fileID: 8358144063325246433}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TiltingPlatform
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4840285596236269406}
   - component: {fileID: 9139664240462733306}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platforms_9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6778356969426328781}
   - component: {fileID: 4398595547384880106}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platforms_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1042949518041183221}
   - component: {fileID: 6568018958928107019}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platforms_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}

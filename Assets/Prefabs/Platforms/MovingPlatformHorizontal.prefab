@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 113023894466359615}
   - component: {fileID: 1046030532}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MovingPlatformHorizontal
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7903778155773295059}
   - component: {fileID: 6165447449477470413}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platforms_13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8231551699685387290}
   - component: {fileID: 2953289679471172970}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platforms_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2029510963208529284}
   - component: {fileID: 1608766491783438908}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platforms_14
   m_TagString: Untagged
   m_Icon: {fileID: 0}

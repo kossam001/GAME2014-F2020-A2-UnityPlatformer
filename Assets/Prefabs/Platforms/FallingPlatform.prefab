@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8411614892955281908}
   - component: {fileID: 5489285315605759856}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platforms_9 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6706408842889668378}
   - component: {fileID: 4931470811558856757}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platforms_3 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8265965332274435719}
   - component: {fileID: 8767701877167080871}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FallingPlatform
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5138281460463234243}
   - component: {fileID: 860184374445520355}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platforms_8 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

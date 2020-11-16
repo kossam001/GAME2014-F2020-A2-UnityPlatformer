@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GroundEnemyController : MonoBehaviour
 {
+    public Transform lineEndpoint;
+    public LayerMask layerMask;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -11,8 +14,13 @@ public class GroundEnemyController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         
+    }
+
+    private void LookForPlatformEdge()
+    {
+        Physics2D.Linecast(transform.position, lineEndpoint.position, layerMask);
     }
 }
