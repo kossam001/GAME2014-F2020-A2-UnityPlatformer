@@ -9174,6 +9174,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 928309134}
+        m_TargetAssemblyTypeName: Attack, Assembly-CSharp
+        m_MethodName: attack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &757662933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17031,6 +17043,7 @@ GameObject:
   - component: {fileID: 928309131}
   - component: {fileID: 928309132}
   - component: {fileID: 928309133}
+  - component: {fileID: 928309134}
   m_Layer: 0
   m_Name: Attack
   m_TagString: Untagged
@@ -17045,13 +17058,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 928309130}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.94, y: 0, z: -1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.16535741, w: 0.9862337}
+  m_LocalPosition: {x: 0.7, y: 0, z: -1}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1423521907}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -19.036}
 --- !u!212 &928309132
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17132,8 +17145,23 @@ PolygonCollider2D:
       - {x: -0.1747979, y: 0.32457304}
       - {x: -0.015625417, y: -0.24198881}
       - {x: -0.01224339, y: -0.93846184}
-      - {x: 0.3682205, y: -0.47968477}
-      - {x: 0.2002306, y: 0.26885334}
+      - {x: 0.2720974, y: -0.5783421}
+      - {x: 0.23860681, y: 0.0151717365}
+--- !u!114 &928309134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928309130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22069114d33af5549ad208eec6c80928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackForce: {x: 500, y: 500}
+  direction: {x: 1, y: 1}
+  maxActiveTime: 0.5
 --- !u!1 &943201869
 GameObject:
   m_ObjectHideFlags: 0
