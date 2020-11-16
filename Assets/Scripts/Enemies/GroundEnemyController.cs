@@ -12,6 +12,7 @@ public class GroundEnemyController : MonoBehaviour
     public bool isTherePlatform;
     public float speed;
     public float direction;
+    public bool isInAir = false;
 
     // Start is called before the first frame update
     void Start()
@@ -36,16 +37,35 @@ public class GroundEnemyController : MonoBehaviour
 
     private void Move()
     {
-        if (isTherePlatform)
+        if (!isInAir)
         {
-            rigidbody2d.AddForce(Vector2.left * speed * Time.deltaTime * direction);
-        }
-        else
-        {
-            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-            direction *= -1;
-        }
+            if (isTherePlatform)
+            {
+                rigidbody2d.AddForce(Vector2.left * speed * Time.deltaTime * direction);
+            }
+            else
+            {
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                direction *= -1;
+            }
 
-        rigidbody2d.velocity *= 0.90f;
+            rigidbody2d.velocity *= 0.90f;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            isInAir = true;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            isInAir = false;
+        }
     }
 }
