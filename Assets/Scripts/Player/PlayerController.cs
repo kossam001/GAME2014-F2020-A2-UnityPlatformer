@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;
     public bool isJumping;
     public float fallVelocityThreshold = 1.0f;
+    public float cumulativeJumpForce = 0;
+    public float maxJumpForce = 1000;
 
     // Start is called before the first frame update
     void Start()
@@ -83,10 +85,11 @@ public class PlayerController : MonoBehaviour
             botAnimator.SetInteger("AnimState", (int)PlayerMovementState.IDLE);
         }
 
-        if ((joystick.Vertical > verticalSensitivity) && isGrounded)
+        if ((joystick.Vertical > verticalSensitivity) && cumulativeJumpForce < maxJumpForce)
         {
             // jump
             rigidbody2d.AddForce(Vector2.up * verticalForce);
+            cumulativeJumpForce += verticalForce;
             isJumping = true;
         }
 
@@ -112,6 +115,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Platform") && rigidbody2d.velocity.y <= fallVelocityThreshold)
         {
             isGrounded = true;
+            cumulativeJumpForce = 0;
         }
     }
 

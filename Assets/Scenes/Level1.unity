@@ -18783,8 +18783,8 @@ MonoBehaviour:
   joystick: {fileID: 192101810}
   horizontalSensitivity: 0.1
   horizontalForce: 300
-  verticalSensitivity: 0.1
-  verticalForce: 300
+  verticalSensitivity: 0.5
+  verticalForce: 50
   arm: {fileID: 568537683}
   weapon: {fileID: 384109961}
   upperBody: {fileID: 1295411268}
@@ -18792,6 +18792,8 @@ MonoBehaviour:
   isGrounded: 0
   isJumping: 0
   fallVelocityThreshold: 1
+  cumulativeJumpForce: 0
+  maxJumpForce: 600
 --- !u!58 &1423521909
 CircleCollider2D:
   m_ObjectHideFlags: 0
