@@ -11,9 +11,8 @@ public class DetectGround : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Platform")
+        if (other.gameObject.CompareTag("Platform"))
         {
-            Debug.Log("DAJDJIOJ");
             cirCollider.enabled = true;
             isOnPlatform = true;
         }
@@ -21,10 +20,8 @@ public class DetectGround : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("DAJDJIOJ");
-        if (other.gameObject.tag == "Platform")
+        if (other.gameObject.CompareTag("Platform"))
         {
-            Debug.Log("DAJDJIOJ");
             cirCollider.enabled = false;
             isOnPlatform = false;
         }

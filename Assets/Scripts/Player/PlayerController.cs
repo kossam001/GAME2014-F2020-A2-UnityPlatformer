@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isGrounded;
     public bool isJumping;
+    public float fallVelocityThreshold = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -77,18 +78,18 @@ public class PlayerController : MonoBehaviour
             botAnimator.SetInteger("AnimState", (int)PlayerMovementState.IDLE);
         }
 
-        if ((joystick.Vertical > verticalSensitivity) && (!isJumping))
+        if ((joystick.Vertical > verticalSensitivity) && isGrounded)
         {
             // jump
             rigidbody2d.AddForce(Vector2.up * verticalForce);
             isJumping = true;
         }
 
-        if (isJumping)
+        if (isGrounded)
         {
             botAnimator.SetBool("IsGrounded", true);
         }
-        else if (isGrounded)
+        else if (!isGrounded)
         {
             botAnimator.SetBool("IsGrounded", false);
         }
@@ -96,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Platform"))
+        if (other.gameObject.CompareTag("Platform") && rigidbody2d.velocity.y <= fallVelocityThreshold)
         {
             isGrounded = true;
         }
@@ -107,7 +108,6 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Platform"))
         {
             isGrounded = false;
-            isJumping = false;
         }
     }
 }
