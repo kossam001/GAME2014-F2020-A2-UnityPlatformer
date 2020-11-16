@@ -44,6 +44,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        Move();
+    }
+
+    private void Move()
+    {
         if (joystick.Horizontal > horizontalSensitivity)
         {
             // move right
@@ -93,6 +98,11 @@ public class PlayerController : MonoBehaviour
         {
             botAnimator.SetBool("IsGrounded", false);
         }
+    }
+
+    public void Attack()
+    {
+
     }
 
     private void OnCollisionEnter2D(Collision2D other)
