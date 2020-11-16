@@ -8,17 +8,22 @@ public class GroundEnemyController : MonoBehaviour
     public LayerMask layerMask;
 
     private Rigidbody2D rigidbody2d;
+    public EnemySight enemySight;
+    public GameObject attackObject;
 
+    private Attack attackComponent;
     public bool isTherePlatform;
     public float speed;
     public float direction;
     public bool isInAir = false;
+    public float attackRange;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         direction = 1;
+        attackComponent = attackObject.GetComponent<Attack>();
     }
 
     // Update is called once per frame
@@ -26,6 +31,7 @@ public class GroundEnemyController : MonoBehaviour
     {
         LookForPlatformEdge();
         Move();
+        SearchForPlayer();
     }
 
     private void LookForPlatformEdge()
@@ -41,7 +47,7 @@ public class GroundEnemyController : MonoBehaviour
         {
             if (isTherePlatform)
             {
-                rigidbody2d.AddForce(Vector2.left * speed * Time.deltaTime * direction);
+                rigidbody2d.AddForce(Vector2.right * speed * Time.deltaTime * direction);
             }
             else
             {
@@ -50,6 +56,17 @@ public class GroundEnemyController : MonoBehaviour
             }
 
             rigidbody2d.velocity *= 0.90f;
+        }
+    }
+
+    private void SearchForPlayer()
+    {
+        if (enemySight.seesPlayer)
+        {
+            if (enemySight.distanceToPlayer <= attackRange && !attackObject.activeInHierarchy)
+            {
+                attackComponent.attack();
+            }
         }
     }
 
