@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Platform
   - ClearPlane
+  - Enemy
   layers:
   - Default
   - TransparentFX
