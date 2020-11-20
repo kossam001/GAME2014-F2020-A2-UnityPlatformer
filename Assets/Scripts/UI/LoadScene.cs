@@ -2,11 +2,11 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-09-29
+ * Last Modified: 2020-11-11
  * 
  * Loads the scene with sceneName when onButtonClicked is called.
  * 
- * 2020-09-29: Added this script.
+ * 2020-11-11: Added this script.
  */
 
 using System.Collections;

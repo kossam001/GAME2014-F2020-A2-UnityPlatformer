@@ -2,11 +2,11 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-09-26
+ * Last Modified: 2020-11-13
  * 
  * Enables the next GameObject in a provided list while disabling the current GameObject.
  * 
- * 2020-09-26: Added script to demo the instruction screens.
+ * 2020-11-13: Added script to demo the instruction screens.
  */ 
 
 using System.Collections;
