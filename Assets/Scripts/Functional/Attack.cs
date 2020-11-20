@@ -16,7 +16,7 @@ public class Attack : MonoBehaviour
     {
         direction.x = transform.parent.transform.localScale.x;
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<Rigidbody2D>().AddForce(knockbackForce * direction);
         }
