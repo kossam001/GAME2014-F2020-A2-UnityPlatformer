@@ -2,7 +2,7 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-16
+ * Last Modified: 2020-11-21
  * 
  * AI for land-based enemies.
  * 
@@ -11,13 +11,14 @@
  * 2020-11-16: AIs can be knocked back by the player's attack.
  * 2020-11-16: AIs will not freak out in the air.
  * 2020-11-16: AI sees the player and will attack when in range.
+ * 2020-11-21: Added Health
  */
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundEnemyController : MonoBehaviour
+public class GroundEnemyController : ICharacter
 {
     public Transform lineEndpoint;
     public LayerMask layerMask;
@@ -32,6 +33,8 @@ public class GroundEnemyController : MonoBehaviour
     public float direction;
     public bool isInAir = false;
     public float attackRange;
+
+    public int soulPoints = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -99,5 +102,11 @@ public class GroundEnemyController : MonoBehaviour
         {
             isInAir = false;
         }
+    }
+
+    public override void UpdateHealth(int pointLoss, int heartGain, Vector2 knockbackForce)
+    {
+        rigidbody2d.AddForce(knockbackForce);
+        soulPoints -= pointLoss;
     }
 }

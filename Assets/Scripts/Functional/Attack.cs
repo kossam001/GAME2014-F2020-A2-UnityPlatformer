@@ -2,7 +2,7 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-20
+ * Last Modified: 2020-11-21
  * 
  * Responds to a trigger collider that appears when a character attacks.
  * 
@@ -10,6 +10,7 @@
  * 2020-11-16: Added knockback.
  * 2020-11-16: Attack goes on and off.
  * 2020-11-20: Added knockback to the player character.
+ * 2020-11-21: Moved damage effects to character
  */
 
 using System.Collections;
@@ -26,13 +27,16 @@ public class Attack : MonoBehaviour
     private float activeTimeDelay = 0.1f;
     private bool isAttacking; // To allow a delay before knockback
 
+    public int pointDamage = 10;
+    public int heartDamage = 10;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         direction.x = transform.parent.transform.localScale.x;
 
         if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(knockbackForce * direction);
+            collision.gameObject.GetComponent<ICharacter>().UpdateHealth(pointDamage, heartDamage, knockbackForce * direction);
         }
     }
 

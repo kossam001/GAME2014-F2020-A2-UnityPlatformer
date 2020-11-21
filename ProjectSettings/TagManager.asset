@@ -8,6 +8,7 @@ TagManager:
   - ClearPlane
   - Enemy
   - Functional
+  - Attack
   layers:
   - Default
   - TransparentFX

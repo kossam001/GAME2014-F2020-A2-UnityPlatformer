@@ -17094,7 +17094,7 @@ GameObject:
   - component: {fileID: 928309134}
   m_Layer: 0
   m_Name: Attack
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19082,6 +19082,9 @@ MonoBehaviour:
   fallVelocityThreshold: 1
   cumulativeJumpForce: 0
   maxJumpForce: 600
+  onTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!58 &1423521909
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -21740,7 +21743,7 @@ GameObject:
   - component: {fileID: 1887871890}
   m_Layer: 0
   m_Name: Attack
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -2,7 +2,7 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-16
+ * Last Modified: 2020-11-21
  * 
  * Allows player to control the character.
  * 
@@ -11,13 +11,15 @@
  * 2020-11-15: Fixed an issue where the player can hold jump and continually platform hop.
  *             Player jump only allowed when they are falling.
  * 2020-11-16: Added attacking and variable jump heights.
+ * 2020-11-21: Added health.
  */
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : ICharacter
 {
     public Joystick joystick;
     public float horizontalSensitivity;
@@ -46,6 +48,10 @@ public class PlayerController : MonoBehaviour
     public float fallVelocityThreshold = 1.0f;
     public float cumulativeJumpForce = 0;
     public float maxJumpForce = 1000;
+    public int heartPoints = 0;
+    public int soulPoints = 100;
+
+    public UnityEvent<int, int> onTakeDamage; 
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +62,8 @@ public class PlayerController : MonoBehaviour
         weaponAnimator = weapon.GetComponent<Animator>();
         topAnimator = upperBody.GetComponent<Animator>();
         botAnimator = lowerBody.GetComponent<Animator>();
+
+        GameManager.Instance.SetPlayer(this);
     }
 
     // Update is called once per frame
@@ -140,5 +148,13 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    public override void UpdateHealth(int pointLoss, int heartGain, Vector2 knockbackForce)
+    {
+        rigidbody2d.AddForce(knockbackForce * (5 * (heartPoints / 100)));
+        soulPoints -= pointLoss;
+        heartPoints += heartGain;
+        onTakeDamage.Invoke(soulPoints, heartPoints);
     }
 }
