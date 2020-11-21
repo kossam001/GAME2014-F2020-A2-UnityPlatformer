@@ -17,6 +17,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GroundEnemyController : ICharacter
 {
@@ -69,12 +70,17 @@ public class GroundEnemyController : ICharacter
             }
             else
             {
-                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                direction *= -1;
+                ChangeDirection();
             }
 
             rigidbody2d.velocity *= 0.90f;
         }
+    }
+
+    private void ChangeDirection()
+    {
+        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        direction *= -1;
     }
 
     private void SearchForPlayer()
@@ -106,7 +112,18 @@ public class GroundEnemyController : ICharacter
 
     public override void UpdateHealth(int pointLoss, int heartGain, Vector2 knockbackForce)
     {
+        // Turn around when hit from behind
+        if (Mathf.Sign(knockbackForce.x) == Mathf.Sign(direction))
+        {
+            ChangeDirection();
+        }
+
         rigidbody2d.AddForce(knockbackForce);
         soulPoints -= pointLoss;
+
+        if (soulPoints <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

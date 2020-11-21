@@ -12,6 +12,7 @@
  *             Player jump only allowed when they are falling.
  * 2020-11-16: Added attacking and variable jump heights.
  * 2020-11-21: Added health.
+ * 2020-11-21: Moved health to game manager.
  */
 
 using System.Collections;
@@ -48,10 +49,6 @@ public class PlayerController : ICharacter
     public float fallVelocityThreshold = 1.0f;
     public float cumulativeJumpForce = 0;
     public float maxJumpForce = 1000;
-    public int heartPoints = 0;
-    public int soulPoints = 100;
-
-    public UnityEvent<int, int> onTakeDamage; 
 
     // Start is called before the first frame update
     void Start()
@@ -62,6 +59,16 @@ public class PlayerController : ICharacter
         weaponAnimator = weapon.GetComponent<Animator>();
         topAnimator = upperBody.GetComponent<Animator>();
         botAnimator = lowerBody.GetComponent<Animator>();
+
+        StartCoroutine(FindGameManager());
+    }
+
+    IEnumerator FindGameManager()
+    {
+        while(GameManager.Instance == null)
+        {
+            yield return null;
+        }
 
         GameManager.Instance.SetPlayer(this);
     }
@@ -152,9 +159,6 @@ public class PlayerController : ICharacter
 
     public override void UpdateHealth(int pointLoss, int heartGain, Vector2 knockbackForce)
     {
-        rigidbody2d.AddForce(knockbackForce * (5 * (heartPoints / 100)));
-        soulPoints -= pointLoss;
-        heartPoints += heartGain;
-        onTakeDamage.Invoke(soulPoints, heartPoints);
+        rigidbody2d.AddForce(knockbackForce * (5 * ((GameManager.Instance.UpdateHealth(pointLoss, heartGain) - heartGain) / 100)));
     }
 }
