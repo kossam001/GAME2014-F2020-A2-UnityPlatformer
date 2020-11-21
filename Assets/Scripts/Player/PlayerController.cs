@@ -1,4 +1,19 @@
-﻿using System.Collections;
+﻿/* PlayerController.cs
+ * 
+ * Samuel Ko
+ * 101168049
+ * Last Modified: 2020-11-16
+ * 
+ * Allows player to control the character.
+ * 
+ * 2020-11-15: Added this script.
+ * 2020-11-15: Added movement and jumping.
+ * 2020-11-15: Fixed an issue where the player can hold jump and continually platform hop.
+ *             Player jump only allowed when they are falling.
+ * 2020-11-16: Added attacking and variable jump heights.
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

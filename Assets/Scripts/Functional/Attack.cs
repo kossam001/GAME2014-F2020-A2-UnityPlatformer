@@ -1,4 +1,18 @@
-﻿using System.Collections;
+﻿/* Attack.cs
+ * 
+ * Samuel Ko
+ * 101168049
+ * Last Modified: 2020-11-20
+ * 
+ * Responds to a trigger collider that appears when a character attacks.
+ * 
+ * 2020-11-16: Added this script.
+ * 2020-11-16: Added knockback.
+ * 2020-11-16: Attack goes on and off.
+ * 2020-11-20: Added knockback to the player character.
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

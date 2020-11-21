@@ -1,4 +1,19 @@
-﻿using System.Collections;
+﻿/* GroundEnemyController.cs
+ * 
+ * Samuel Ko
+ * 101168049
+ * Last Modified: 2020-11-16
+ * 
+ * AI for land-based enemies.
+ * 
+ * 2020-11-16: Added this script.
+ * 2020-11-16: AI can detect edges of platforms and will not walk off.
+ * 2020-11-16: AIs can be knocked back by the player's attack.
+ * 2020-11-16: AIs will not freak out in the air.
+ * 2020-11-16: AI sees the player and will attack when in range.
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

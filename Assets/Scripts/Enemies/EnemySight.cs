@@ -1,4 +1,16 @@
-﻿using System.Collections;
+﻿/* EnemySight.cs
+ * 
+ * Samuel Ko
+ * 101168049
+ * Last Modified: 2020-11-16
+ * 
+ * Logic for enemy sight triggers.
+ * 
+ * 2020-11-16: Added this script.
+ * 2020-11-16: If the enemy sees the player, raise a flag and report distance between enemy and player.
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
