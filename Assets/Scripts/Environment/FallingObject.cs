@@ -33,6 +33,7 @@ public class FallingObject : MonoBehaviour
 
     private void Start()
     {
+        fallingTrigger = GetComponent<Collider2D>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         GetComponent<Collider2D>().isTrigger = true;
     }
