@@ -15,6 +15,7 @@
  * 2020-11-21: Moved health to game manager.
  * 2020-11-21: Added fall damage.
  * 2020-11-22: Syncing attack animation with attack collider.
+ * 2020-11-22: Added reset.
  */
 
 using System.Collections;
@@ -176,5 +177,10 @@ public class PlayerController : ICharacter
     public override void UpdateHealth(int pointGain, int heartGain, Vector2 knockbackForce)
     {
         rigidbody2d.AddForce(knockbackForce * (5 * ((GameManager.Instance.UpdateHealth(-pointGain, heartGain) - heartGain) / 100)));
+    }
+
+    public override void Reset()
+    {
+        GameManager.Instance.ResetPlayer();
     }
 }

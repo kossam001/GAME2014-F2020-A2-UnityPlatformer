@@ -13,6 +13,7 @@
  * 2020-11-16: AI sees the player and will attack when in range.
  * 2020-11-21: Added Health.
  * 2020-11-22: Adjusting attack spam.
+ * 2020-11-22: Added reset.
  */
 
 using System.Collections;
@@ -36,6 +37,7 @@ public class GroundEnemyController : ICharacter
     public bool isInAir = false;
     public float attackRange;
 
+    public int defaultPoints = 100;
     public int soulPoints = 100;
     public float attackDelay = 0;
     public float maxAttackDelay = 1.0f;
@@ -116,8 +118,6 @@ public class GroundEnemyController : ICharacter
     {
         if (collision.gameObject.CompareTag("Platform"))
         {
-            Debug.Log(collision.gameObject.name);
-
             isInAir = false;
         }
     }
@@ -140,9 +140,9 @@ public class GroundEnemyController : ICharacter
         }
     }
 
-    // Allows for manual override for falling enemies
-    public void isInAirOverride(bool _IsInAir)
+    public override void Reset()
     {
-        isInAir = _IsInAir;
+        soulPoints = defaultPoints;
+        gameObject.SetActive(true);
     }
 }

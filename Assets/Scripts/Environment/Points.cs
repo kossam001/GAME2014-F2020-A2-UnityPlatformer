@@ -8,14 +8,20 @@
  * 
  * 2020-11-22: Added this script.
  * 2020-11-22: Gives player points.
+ * 2020-11-22: Added reset.
  */
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Points : MonoBehaviour
+public class Points : SpawnableObject
 {
+    public override void Reset()
+    {
+        gameObject.SetActive(true);
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.GetComponent<ICharacter>())

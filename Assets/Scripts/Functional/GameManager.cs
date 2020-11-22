@@ -54,4 +54,9 @@ public class GameManager : MonoBehaviour
         onStatUpdated.Invoke(playerScore, playerHeart);
         return playerHeart;
     }
+
+    public void ResetPlayer()
+    {
+
+    }
 }

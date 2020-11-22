@@ -9,15 +9,22 @@
  * 2020-11-22: Added this script.
  * 2020-11-22: Gives player points.
  * 2020-11-22: Despawn when hits = 0.
+ * 2020-11-22: Added reset.
  */
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tombstone : MonoBehaviour
+public class Tombstone : SpawnableObject
 {
     public int hits = 5;
+
+    public override void Reset()
+    {
+        hits = 5;
+        gameObject.SetActive(true);
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
