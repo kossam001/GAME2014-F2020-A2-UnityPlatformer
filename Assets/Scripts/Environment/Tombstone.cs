@@ -8,6 +8,7 @@
  * 
  * 2020-11-22: Added this script.
  * 2020-11-22: Gives player points.
+ * 2020-11-22: Despawn when hits = 0.
  */
 
 using System.Collections;
@@ -27,6 +28,7 @@ public class Tombstone : MonoBehaviour
             if (hits <= 0)
             {
                 other.gameObject.GetComponentInParent<ICharacter>().UpdateHealth(-Random.Range(10, 100), 0, Vector2.zero);
+                gameObject.SetActive(false);
             }
         }
     }
