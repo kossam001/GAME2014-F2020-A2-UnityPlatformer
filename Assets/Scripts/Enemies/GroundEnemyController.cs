@@ -116,6 +116,8 @@ public class GroundEnemyController : ICharacter
     {
         if (collision.gameObject.CompareTag("Platform"))
         {
+            Debug.Log(collision.gameObject.name);
+
             isInAir = false;
         }
     }
@@ -136,5 +138,11 @@ public class GroundEnemyController : ICharacter
             GameManager.Instance.UpdateHealth(Random.Range(10, 50), 0);
             gameObject.SetActive(false);
         }
+    }
+
+    // Allows for manual override for falling enemies
+    public void isInAirOverride(bool _IsInAir)
+    {
+        isInAir = _IsInAir;
     }
 }

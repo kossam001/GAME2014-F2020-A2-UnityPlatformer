@@ -2,7 +2,7 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-15
+ * Last Modified: 2020-11-22
  * 
  * A separate trigger collider that detects platforms.  Purpose is to
  * only allow collisions from above the platform so the player can move
@@ -12,6 +12,9 @@
  * 2020-11-15: Player only collides with platforms when they are colliding from above.
  * 2020-11-15: Issue with moving between touching platforms because OnTriggerEnter2D does not fire.
  *             Changed OnTriggerEnter2D to OnTriggerStay2D to get consistent collision checks.
+ * 2020-11-21: Added a ColliderReset so that it refires another collision check before concluding that
+ *             there is no platform beneath the character, solving the adjacent platform issue with 
+ *             trigger enter.
  */
 
 using System.Collections;
@@ -25,7 +28,7 @@ public class DetectGround : MonoBehaviour
 
     public bool isOnPlatform;
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Platform") && !cirCollider.isTrigger)
         {
@@ -39,7 +42,16 @@ public class DetectGround : MonoBehaviour
         if (other.gameObject.CompareTag("Platform") && !cirCollider.isTrigger)
         {
             cirCollider.enabled = false;
+            ColliderReset();
+
             isOnPlatform = false;
         }
+    }
+
+    // Refires trigger
+    public void ColliderReset()
+    {
+        cirCollider.enabled = false;
+        cirCollider.enabled = true;
     }
 }

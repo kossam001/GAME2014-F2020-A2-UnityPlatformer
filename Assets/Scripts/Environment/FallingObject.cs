@@ -2,13 +2,14 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-21
+ * Last Modified: 2020-11-22
  * 
  * As a part of environment hazards, object will fall from above.
  * Some objects will land on platforms while others will pass through.
  * 
  * 2020-11-21: Added this script.
  * 2020-11-22: Can do damage.
+ * 2020-11-22: Added a ColliderReset to refire onCollisionEnter when it no longer is a trigger.
  */
 
 using System.Collections;
@@ -60,14 +61,19 @@ public class FallingObject : MonoBehaviour
             if (fallThroughAmount <= 0)
             {
                 fallingTrigger.isTrigger = false;
+                ColliderReset();
+
                 this.enabled = false;
                 
             }
             else if (shouldStopNearPlayer && Mathf.Abs(playerTransform.position.y - transform.position.y) <= elevationThreshold)
             {
-                fallingTrigger.isTrigger = false;
-                this.enabled = false;
                 fallThroughAmount = 0;
+                fallingTrigger.isTrigger = false;
+
+                ColliderReset();
+
+                this.enabled = false;
             }
         }
 
@@ -78,6 +84,13 @@ public class FallingObject : MonoBehaviour
                 other.gameObject.GetComponent<ICharacter>().UpdateHealth(pointDamage, heartDamage, knockbackForce * -Mathf.Sign(other.gameObject.transform.localScale.x));
             }
         }
+    }
+
+    // Refires trigger
+    public void ColliderReset()
+    {
+        fallingTrigger.enabled = false;
+        fallingTrigger.enabled = true;
     }
 
     // Restarts falling
