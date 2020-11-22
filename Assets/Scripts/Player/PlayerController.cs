@@ -13,6 +13,7 @@
  * 2020-11-16: Added attacking and variable jump heights.
  * 2020-11-21: Added health.
  * 2020-11-21: Moved health to game manager.
+ * 2020-11-21: Added fall damage.
  */
 
 using System.Collections;
@@ -45,10 +46,10 @@ public class PlayerController : ICharacter
     private Rigidbody2D rigidbody2d;
 
     public bool isGrounded;
-    public bool isJumping;
     public float fallVelocityThreshold = 1.0f;
     public float cumulativeJumpForce = 0;
     public float maxJumpForce = 1000;
+    public float totalFallDistance = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -120,7 +121,6 @@ public class PlayerController : ICharacter
             // jump
             rigidbody2d.AddForce(Vector2.up * verticalForce);
             cumulativeJumpForce += verticalForce;
-            isJumping = true;
         }
 
         if (isGrounded)
@@ -130,6 +130,12 @@ public class PlayerController : ICharacter
         else if (!isGrounded)
         {
             botAnimator.SetBool("IsGrounded", false);
+        }
+
+        // Figure out fall distance
+        if (rigidbody2d.velocity.y <= fallVelocityThreshold && !isGrounded)
+        {
+            totalFallDistance += rigidbody2d.velocity.y;
         }
     }
 
@@ -146,6 +152,10 @@ public class PlayerController : ICharacter
         {
             isGrounded = true;
             cumulativeJumpForce = 0;
+
+            // Fall damage
+            GameManager.Instance.UpdateHealth((int) Mathf.Min(maxJumpForce + totalFallDistance, 0), 0);
+            totalFallDistance = 0;
         }
     }
 
@@ -157,8 +167,8 @@ public class PlayerController : ICharacter
         }
     }
 
-    public override void UpdateHealth(int pointLoss, int heartGain, Vector2 knockbackForce)
+    public override void UpdateHealth(int pointGain, int heartGain, Vector2 knockbackForce)
     {
-        rigidbody2d.AddForce(knockbackForce * (5 * ((GameManager.Instance.UpdateHealth(pointLoss, heartGain) - heartGain) / 100)));
+        rigidbody2d.AddForce(knockbackForce * (5 * ((GameManager.Instance.UpdateHealth(-pointGain, heartGain) - heartGain) / 100)));
     }
 }

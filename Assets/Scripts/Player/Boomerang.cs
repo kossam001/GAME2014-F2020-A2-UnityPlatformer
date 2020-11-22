@@ -25,6 +25,8 @@ public class Boomerang : MonoBehaviour
     public float range = 10;
     public float speed = 10;
     public Vector2 knockbackForce = new Vector2(100, 0);
+    public int pointDamage = 25;
+    public int heartDamage = 10;
 
     private bool isReturning = false;
     private bool hasReturned = false;
@@ -69,7 +71,8 @@ public class Boomerang : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Enemy"))
             {
-                other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector3.Scale(knockbackForce, new Vector3(Mathf.Sign(travelDirection.x), Mathf.Sign(travelDirection.y))));
+                other.gameObject.GetComponent<ICharacter>().UpdateHealth(pointDamage, heartDamage, 
+                    Vector3.Scale(knockbackForce, new Vector3(Mathf.Sign(travelDirection.x), Mathf.Sign(travelDirection.y))));
             }
 
             // Recalculate direction when colliding with something other than the player

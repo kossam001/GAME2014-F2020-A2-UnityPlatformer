@@ -54,14 +54,9 @@ public class GameManager : MonoBehaviour
         player = playerController;
     }
 
-    public int UpdateHealth(int pointsLoss, int heartsIncrease)
+    public int UpdateHealth(int pointsGain, int heartsIncrease)
     {
-        playerScore -= pointsLoss;
+        playerScore += pointsGain;
         return playerHeart += heartsIncrease;
-    }
-
-    public void UpdateScore()
-    {
-
     }
 }

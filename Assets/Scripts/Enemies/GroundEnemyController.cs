@@ -123,6 +123,7 @@ public class GroundEnemyController : ICharacter
 
         if (soulPoints <= 0)
         {
+            GameManager.Instance.UpdateHealth(Random.Range(10, 50), 0);
             gameObject.SetActive(false);
         }
     }
