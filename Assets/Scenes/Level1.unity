@@ -16813,6 +16813,7 @@ GameObject:
   - component: {fileID: 780366517}
   - component: {fileID: 780366521}
   - component: {fileID: 780366520}
+  - component: {fileID: 780366522}
   m_Layer: 0
   m_Name: FallingRock
   m_TagString: Untagged
@@ -16883,13 +16884,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea5ef86ddac34e54ab7930a4a3eda74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallThroughAmount: 8
+  fallThroughAmount: 4
   shouldStopNearPlayer: 1
   playerTransform: {fileID: 1423521907}
   elevationThreshold: 3
-  shouldSlowfall: 1
+  shouldSlowFall: 1
   fallingTrigger: {fileID: 780366520}
-  rigidbody2d: {fileID: 0}
 --- !u!4 &780366519
 Transform:
   m_ObjectHideFlags: 0
@@ -16898,7 +16898,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 780366516}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.39485, y: 16.41, z: -62.32525}
+  m_LocalPosition: {x: 14.39485, y: 30.14, z: -62.32525}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -16941,6 +16941,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &780366522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780366516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b93b966d68623b642aa3c48e0d6ba1f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointDamage: 10
+  heartDamage: 10
+  knockbackForce: {x: 100, y: 0}
 --- !u!1 &830703094
 GameObject:
   m_ObjectHideFlags: 0
@@ -19314,9 +19329,8 @@ MonoBehaviour:
   shouldStopNearPlayer: 0
   playerTransform: {fileID: 1423521907}
   elevationThreshold: 1
-  shouldSlowfall: 0
+  shouldSlowFall: 1
   fallingTrigger: {fileID: 1423521909}
-  rigidbody2d: {fileID: 0}
 --- !u!1 &1428465632
 GameObject:
   m_ObjectHideFlags: 0
