@@ -15,5 +15,5 @@ using UnityEngine;
 
 public abstract class ICharacter : MonoBehaviour
 {
-    public abstract void UpdateHealth(int pointLoss, int heartGain, Vector2 knockbackForce);
+    public abstract void UpdateHealth(int pointGain, int heartGain, Vector2 knockbackForce);
 }

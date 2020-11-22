@@ -2,7 +2,7 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-21
+ * Last Modified: 2020-11-22
  * 
  * Allows player to control the character.
  * 
@@ -14,6 +14,7 @@
  * 2020-11-21: Added health.
  * 2020-11-21: Moved health to game manager.
  * 2020-11-21: Added fall damage.
+ * 2020-11-22: Syncing attack animation with attack collider.
  */
 
 using System.Collections;
@@ -24,6 +25,7 @@ using UnityEngine.Events;
 public class PlayerController : ICharacter
 {
     public Joystick joystick;
+    public Attack attack;
     public float horizontalSensitivity;
     public float horizontalForce;
     public float verticalSensitivity;
@@ -141,9 +143,13 @@ public class PlayerController : ICharacter
 
     public void Attack()
     {
-        armAnimator.SetTrigger("Attack");
-        weaponAnimator.SetTrigger("Attack");
-        topAnimator.SetTrigger("Attack");
+        if (attack.activeTime < 0)
+        {
+            attack.attack();
+            armAnimator.SetTrigger("Attack");
+            weaponAnimator.SetTrigger("Attack");
+            topAnimator.SetTrigger("Attack");
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D other)

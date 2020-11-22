@@ -8,6 +8,7 @@
  * Some objects will land on platforms while others will pass through.
  * 
  * 2020-11-21: Added this script.
+ * 2020-11-22: Can do damage.
  */
 
 using System.Collections;
@@ -21,13 +22,19 @@ public class FallingObject : MonoBehaviour
     public Transform playerTransform;
     public float elevationThreshold = 3;
     public bool shouldSlowFall = true;
+    public bool shouldDealDamage = false;
 
     public Collider2D fallingTrigger;
     private Rigidbody2D rigidbody2d;
 
+    public int pointDamage = 10;
+    public int heartDamage = 10;
+    public Vector2 knockbackForce = new Vector2(100, 0);
+
     private void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
+        GetComponent<Collider2D>().isTrigger = true;
     }
 
     private void Update()
@@ -62,15 +69,24 @@ public class FallingObject : MonoBehaviour
                 fallThroughAmount = 0;
             }
         }
+
+        if (shouldDealDamage)
+        {
+            if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Enemy"))
+            {
+                other.gameObject.GetComponent<ICharacter>().UpdateHealth(pointDamage, heartDamage, knockbackForce * -Mathf.Sign(other.gameObject.transform.localScale.x));
+            }
+        }
     }
 
     // Restarts falling
-    public void StartFalling(int fallAmount, bool slowFall, bool stopFall)
+    public void StartFalling(int fallAmount, bool slowFall, bool stopFall, bool doDamage)
     {
         fallingTrigger.isTrigger = true;
         fallThroughAmount = fallAmount;
         shouldSlowFall = slowFall;
         shouldStopNearPlayer = stopFall;
+        shouldDealDamage = doDamage;
 
         this.enabled = true;
     }
