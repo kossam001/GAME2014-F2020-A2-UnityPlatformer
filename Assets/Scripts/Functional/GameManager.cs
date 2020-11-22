@@ -2,17 +2,19 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-21
+ * Last Modified: 2020-11-22
  * 
  * Communications between different game components.
  * 
  * 2020-11-21: Added this script.
  * 2020-11-21: Moved player health and score hear so that there are no duplications.
+ * 2020-11-22: Calls event to update label.
  */
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -37,17 +39,7 @@ public class GameManager : MonoBehaviour
     public int playerScore = 100;
     public int playerHeart = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public UnityEvent<int,int> onStatUpdated;
 
     public void SetPlayer(PlayerController playerController)
     {
@@ -57,6 +49,9 @@ public class GameManager : MonoBehaviour
     public int UpdateHealth(int pointsGain, int heartsIncrease)
     {
         playerScore += pointsGain;
-        return playerHeart += heartsIncrease;
+        playerHeart += heartsIncrease;
+
+        onStatUpdated.Invoke(playerScore, playerHeart);
+        return playerHeart;
     }
 }

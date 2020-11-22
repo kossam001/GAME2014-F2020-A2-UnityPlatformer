@@ -2,7 +2,7 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-21
+ * Last Modified: 2020-11-22
  * 
  * AI for land-based enemies.
  * 
@@ -11,7 +11,8 @@
  * 2020-11-16: AIs can be knocked back by the player's attack.
  * 2020-11-16: AIs will not freak out in the air.
  * 2020-11-16: AI sees the player and will attack when in range.
- * 2020-11-21: Added Health
+ * 2020-11-21: Added Health.
+ * 2020-11-22: Adjusting attack spam.
  */
 
 using System.Collections;
@@ -36,6 +37,8 @@ public class GroundEnemyController : ICharacter
     public float attackRange;
 
     public int soulPoints = 100;
+    public float attackDelay = 0;
+    public float maxAttackDelay = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +51,9 @@ public class GroundEnemyController : ICharacter
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (attackDelay > 0)
+            attackDelay -= Time.deltaTime;
+
         LookForPlatformEdge();
         Move();
         SearchForPlayer();
@@ -89,7 +95,11 @@ public class GroundEnemyController : ICharacter
         {
             if (enemySight.distanceToPlayer <= attackRange && !attackObject.activeInHierarchy)
             {
-                attackComponent.attack();
+                if (attackDelay <= 0)
+                {
+                    attackComponent.attack();
+                    attackDelay = maxAttackDelay;
+                }
             }
         }
     }
