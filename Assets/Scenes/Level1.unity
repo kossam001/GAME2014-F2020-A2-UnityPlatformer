@@ -17167,14 +17167,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fixedEnemyPrefab: {fileID: 0}
-  fallingEnemyPrefab: {fileID: 0}
+  fallingEnemyPrefab: {fileID: 7173855401527633694, guid: ade36dd6554356b41a10774bdddfc87a, type: 3}
   rockPrefab: {fileID: 8187512381516102244, guid: 10b436e36b10f38438d4ae8a76feb333, type: 3}
-  pointsPrefab: {fileID: 0}
-  tombstonePrefab: {fileID: 0}
+  pointsPrefab: {fileID: 425492572000790514, guid: 99c6b638de7c96e49b7ff3275fd89ec7, type: 3}
+  tombstonePrefab: {fileID: 8877664962403218393, guid: c868a1a2e97ba854e9242da5465ba5b8, type: 3}
   playerTransform: {fileID: 1423521907}
   spawnHorizontalRange: 25
   spawnHeight: 15
   onCooldown: 0
+  numFallingEnemy: 5
+  numTombstone: 5
+  numRocks: 10
+  numPoints: 10
+  fallingObjects: []
 --- !u!4 &900442248
 Transform:
   m_ObjectHideFlags: 0
@@ -17817,6 +17822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7468418b8e0a2544f867faf47ea614ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1423521904}
   playerScore: 100
   playerHeart: 0
   onStatUpdated:
@@ -18322,7 +18328,7 @@ GameObject:
   - component: {fileID: 1121499099}
   - component: {fileID: 1121499098}
   m_Layer: 9
-  m_Name: AbsoluteDeathPlane
+  m_Name: DeathPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18374,8 +18380,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1121499097}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 100, y: -20, z: 1}
-  m_LocalScale: {x: 1000, y: 5, z: 1}
+  m_LocalPosition: {x: 100, y: -30, z: 1}
+  m_LocalScale: {x: 1000, y: 30, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 19
@@ -19293,6 +19299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f995a3ac56ea0941a87ad9a6ec8b9a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
+  shouldDeactivateOffscreen: 1
+  objType: 0
   joystick: {fileID: 192101810}
   attack: {fileID: 928309134}
   horizontalSensitivity: 0.1
@@ -23007,6 +23016,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Points
       objectReference: {fileID: 0}
+    - target: {fileID: 425492572000790514, guid: 99c6b638de7c96e49b7ff3275fd89ec7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 425492572000790516, guid: 99c6b638de7c96e49b7ff3275fd89ec7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.74
@@ -23363,6 +23376,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FallingSkeletonA
       objectReference: {fileID: 0}
+    - target: {fileID: 7173855401527633694, guid: ade36dd6554356b41a10774bdddfc87a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ade36dd6554356b41a10774bdddfc87a, type: 3}
 --- !u!1001 &8187512381021243600
@@ -23375,6 +23392,10 @@ PrefabInstance:
     - target: {fileID: 8187512381516102244, guid: 10b436e36b10f38438d4ae8a76feb333, type: 3}
       propertyPath: m_Name
       value: FallingRock
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187512381516102244, guid: 10b436e36b10f38438d4ae8a76feb333, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8187512381516102246, guid: 10b436e36b10f38438d4ae8a76feb333, type: 3}
       propertyPath: playerTransform
@@ -23484,6 +23505,10 @@ PrefabInstance:
     - target: {fileID: 8877664962403218393, guid: c868a1a2e97ba854e9242da5465ba5b8, type: 3}
       propertyPath: m_Name
       value: Tombstone
+      objectReference: {fileID: 0}
+    - target: {fileID: 8877664962403218393, guid: c868a1a2e97ba854e9242da5465ba5b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c868a1a2e97ba854e9242da5465ba5b8, type: 3}

@@ -43,8 +43,10 @@ public class GroundEnemyController : ICharacter
     public float maxAttackDelay = 1.0f;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        objType = EnumSpawnObjectType.AI;
+
         rigidbody2d = GetComponent<Rigidbody2D>();
         direction = 1;
         attackComponent = attackObject.GetComponent<Attack>();

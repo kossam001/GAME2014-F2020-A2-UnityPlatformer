@@ -57,6 +57,8 @@ public class PlayerController : ICharacter
     // Start is called before the first frame update
     void Start()
     {
+        objType = EnumSpawnObjectType.PLAYER;
+
         playerTransform = transform;
         rigidbody2d = GetComponent<Rigidbody2D>();
 

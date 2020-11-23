@@ -17,6 +17,11 @@ using UnityEngine;
 
 public class Rock : SpawnableObject
 {
+    private void Awake()
+    {
+        objType = EnumSpawnObjectType.ROCK;
+    }
+
     public override void Reset()
     {
         transform.localScale = new Vector3(Random.Range(1, 3), Random.Range(1, 3));

@@ -8,7 +8,8 @@
  * 
  * 2020-11-22: Added this script.
  * 2020-11-22: All dynamic objects should be resetable.
- * 2020-11-22: Spawnable objects should despawn when outside of player's activity zone
+ * 2020-11-22: Spawnable objects should despawn when outside of player's activity zone.
+ * 2020-11-22: Spawns different types of falling objects.
  */
 
 using System.Collections;
@@ -21,16 +22,20 @@ public abstract class SpawnableObject : MonoBehaviour
     public Transform playerTransform;
     public bool shouldDeactivateOffscreen = true;
 
-    private void Start()
-    {
-        playerTransform = SpawnManager.Instance.playerTransform;
-    }
+    public EnumSpawnObjectType objType;
 
     private void Update()
     {
-        if (playerTransform.position.y - transform.position.y > 20 && shouldDeactivateOffscreen)
+        if (playerTransform != null && playerTransform.position.y - transform.position.y > 20 && shouldDeactivateOffscreen)
         {
             GetComponent<SpawnableObject>().Despawn();
+        }
+        else
+        {
+            if (playerTransform == null)
+            {
+                playerTransform = GameManager.Instance.GetPlayerTransform();
+            }
         }
     }
 

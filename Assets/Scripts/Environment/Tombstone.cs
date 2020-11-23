@@ -20,6 +20,11 @@ public class Tombstone : SpawnableObject
 {
     public int hits = 5;
 
+    private void Awake()
+    {
+        objType = EnumSpawnObjectType.TOMBSTONE;
+    }
+
     public override void Reset()
     {
         hits = 5;
