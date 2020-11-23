@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8411614892955281908}
   - component: {fileID: 5489285315605759856}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Platforms_9 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6706408842889668378}
   - component: {fileID: 4931470811558856757}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Platforms_3 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8265965332274435719}
   - component: {fileID: 8767701877167080871}
-  m_Layer: 8
+  - component: {fileID: 1258601313}
+  - component: {fileID: 1258601314}
+  m_Layer: 0
   m_Name: FallingPlatform
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -224,6 +226,44 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.9997802, y: 0.17403185}
   m_EdgeRadius: 0
+--- !u!50 &1258601313
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4635384931546906415}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
+--- !u!114 &1258601314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4635384931546906415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ee815a3833dbd4cb672adbdc8977e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallTimer: 3
+  fallSpeed: 5
+  pointDamage: 10
+  heartDamage: 10
+  isAlwaysFalling: 0
 --- !u!1 &6506856527698286504
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5138281460463234243}
   - component: {fileID: 860184374445520355}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Platforms_8 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
