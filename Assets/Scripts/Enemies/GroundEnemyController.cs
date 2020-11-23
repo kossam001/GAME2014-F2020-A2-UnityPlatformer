@@ -2,7 +2,7 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-22
+ * Last Modified: 2020-11-23
  * 
  * AI for land-based enemies.
  * 
@@ -14,6 +14,7 @@
  * 2020-11-21: Added Health.
  * 2020-11-22: Adjusting attack spam.
  * 2020-11-22: Added reset.
+ * 2020-11-23: Added collider reset for better platform detection.
  */
 
 using System.Collections;
@@ -42,9 +43,13 @@ public class GroundEnemyController : ICharacter
     public float attackDelay = 0;
     public float maxAttackDelay = 1.0f;
 
+    private Vector3 startingPosition;
+
     // Start is called before the first frame update
     void Awake()
     {
+        startingPosition = transform.position;
+
         objType = EnumSpawnObjectType.AI;
 
         rigidbody2d = GetComponent<Rigidbody2D>();
@@ -114,6 +119,8 @@ public class GroundEnemyController : ICharacter
         {
             isInAir = true;
         }
+
+        ColliderReset();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -138,12 +145,20 @@ public class GroundEnemyController : ICharacter
         if (soulPoints <= 0)
         {
             GameManager.Instance.UpdateHealth(Random.Range(10, 50), 0);
-            gameObject.SetActive(false);
+            Despawn();
         }
+    }
+
+    // Refires trigger
+    public void ColliderReset()
+    {
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<Collider2D>().enabled = true;
     }
 
     public override void Reset()
     {
+        transform.position = startingPosition;
         soulPoints = defaultPoints;
         gameObject.SetActive(true);
     }

@@ -173,6 +173,14 @@ public class PlayerController : ICharacter
         {
             isGrounded = false;
         }
+        ColliderReset();
+    }
+
+    // Refires trigger
+    public void ColliderReset()
+    {
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<Collider2D>().enabled = true;
     }
 
     public override void UpdateHealth(int pointGain, int heartGain, Vector2 knockbackForce)

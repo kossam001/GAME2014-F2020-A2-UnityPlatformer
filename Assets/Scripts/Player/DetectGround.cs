@@ -12,7 +12,7 @@
  * 2020-11-15: Player only collides with platforms when they are colliding from above.
  * 2020-11-15: Issue with moving between touching platforms because OnTriggerEnter2D does not fire.
  *             Changed OnTriggerEnter2D to OnTriggerStay2D to get consistent collision checks.
- * 2020-11-21: Added a ColliderReset so that it refires another collision check before concluding that
+ * 2020-11-22: Added a ColliderReset so that it refires another collision check before concluding that
  *             there is no platform beneath the character, solving the adjacent platform issue with 
  *             trigger enter.
  */
@@ -42,16 +42,16 @@ public class DetectGround : MonoBehaviour
         if (other.gameObject.CompareTag("Platform") && !cirCollider.isTrigger)
         {
             cirCollider.enabled = false;
-            ColliderReset();
-
             isOnPlatform = false;
         }
+
+        ColliderReset();
     }
 
     // Refires trigger
     public void ColliderReset()
     {
-        cirCollider.enabled = false;
-        cirCollider.enabled = true;
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<Collider2D>().enabled = true;
     }
 }

@@ -42,7 +42,7 @@ public class Points : SpawnableObject
         if (other.gameObject.GetComponent<ICharacter>())
         {
             other.gameObject.GetComponentInParent<ICharacter>().UpdateHealth(-Random.Range(10, 20), 0, Vector2.zero);
-            gameObject.SetActive(false);
+            Despawn();
         }
     }
 }
