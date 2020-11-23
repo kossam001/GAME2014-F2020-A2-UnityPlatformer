@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Functional
   - Attack
+  - CrumblyPlatform
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - 
   - 
   - Platforms
-  - 
+  - DeathPlane
   - 
   - 
   - 

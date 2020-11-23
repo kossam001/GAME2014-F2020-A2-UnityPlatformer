@@ -10,6 +10,7 @@
  * 2020-11-21: Added this script.
  * 2020-11-22: Can do damage.
  * 2020-11-22: Added a ColliderReset to refire onCollisionEnter when it no longer is a trigger.
+ * 2020-11-22: Adding to respawn code.
  */
 
 using System.Collections;
@@ -94,7 +95,7 @@ public class FallingObject : MonoBehaviour
     }
 
     // Restarts falling
-    public void StartFalling(int fallAmount, bool slowFall, bool stopFall, bool doDamage)
+    public void StartFalling(int fallAmount, bool slowFall, bool stopFall, bool doDamage, Vector3 startPosition)
     {
         fallingTrigger.isTrigger = true;
         fallThroughAmount = fallAmount;
@@ -102,6 +103,8 @@ public class FallingObject : MonoBehaviour
         shouldStopNearPlayer = stopFall;
         shouldDealDamage = doDamage;
 
+        GetComponent<SpawnableObject>().Reset();
+        gameObject.transform.position = startPosition;
         this.enabled = true;
     }
 }

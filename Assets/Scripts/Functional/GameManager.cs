@@ -9,6 +9,7 @@
  * 2020-11-21: Added this script.
  * 2020-11-21: Moved player health and score hear so that there are no duplications.
  * 2020-11-22: Calls event to update label.
+ * 2020-11-22: Added a global access to player transform here
  */
 
 using System.Collections;
@@ -35,16 +36,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private PlayerController player;
+    public GameObject player;
     public int playerScore = 100;
     public int playerHeart = 0;
 
     public UnityEvent<int,int> onStatUpdated;
-
-    public void SetPlayer(PlayerController playerController)
-    {
-        player = playerController;
-    }
 
     public int UpdateHealth(int pointsGain, int heartsIncrease)
     {
@@ -58,5 +54,10 @@ public class GameManager : MonoBehaviour
     public void ResetPlayer()
     {
 
+    }
+
+    public Transform GetPlayerTransform()
+    {
+        return player.transform;
     }
 }

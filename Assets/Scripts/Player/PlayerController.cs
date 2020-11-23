@@ -57,6 +57,7 @@ public class PlayerController : ICharacter
     // Start is called before the first frame update
     void Start()
     {
+        playerTransform = transform;
         rigidbody2d = GetComponent<Rigidbody2D>();
 
         armAnimator = arm.GetComponent<Animator>();
@@ -73,8 +74,6 @@ public class PlayerController : ICharacter
         {
             yield return null;
         }
-
-        GameManager.Instance.SetPlayer(this);
     }
 
     // Update is called once per frame
