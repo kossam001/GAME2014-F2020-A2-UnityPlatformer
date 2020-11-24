@@ -137,7 +137,7 @@ public class SpawnManager : MonoBehaviour
         switch (obj.gameObject.GetComponent<SpawnableObject>().objType)
         {
             case EnumSpawnObjectType.ROCK:
-                obj.StartFalling(Random.Range(0, 10), true, false, true, spawnRange);
+                obj.StartFalling(Random.Range(0, 10), true, false, false, spawnRange);
                 break;
             case EnumSpawnObjectType.AI:
                 obj.StartFalling(Random.Range(0, 10), false, Random.value < 0.5f, true, spawnRange);
