@@ -40,7 +40,17 @@ public class GameManager : MonoBehaviour
     public int playerScore = 100;
     public int playerHeart = 0;
 
+    public List<ISkill> skills;
+
     public UnityEvent<int,int> onStatUpdated;
+
+    private void Start()
+    {
+        foreach (ISkill skill in skills)
+        {
+            skill.Attach(player);
+        }
+    }
 
     public int UpdateHealth(int pointsGain, int heartsIncrease)
     {

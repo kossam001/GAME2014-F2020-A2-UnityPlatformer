@@ -2,7 +2,7 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-22
+ * Last Modified: 2020-11-23
  * 
  * Allows player to control the character.
  * 
@@ -16,6 +16,7 @@
  * 2020-11-21: Added fall damage.
  * 2020-11-22: Syncing attack animation with attack collider.
  * 2020-11-22: Added reset.
+ * 2020-11-23: Adding events to player actions.
  */
 
 using System.Collections;
@@ -46,13 +47,19 @@ public class PlayerController : ICharacter
     private Animator topAnimator;
     private Animator botAnimator;
 
-    private Rigidbody2D rigidbody2d;
+    public Rigidbody2D rigidbody2d;
 
     public bool isGrounded;
+    public bool isFalling;
     public float fallVelocityThreshold = 1.0f;
     public float cumulativeJumpForce = 0;
     public float maxJumpForce = 1000;
     public float totalFallDistance = 0;
+
+    // Events for passive skill use.
+    public UnityEvent onAttack; 
+    public UnityEvent onJump;
+    public UnityEvent onMove;
 
     // Start is called before the first frame update
     void Start()
@@ -82,6 +89,7 @@ public class PlayerController : ICharacter
     void FixedUpdate()
     {
         Move();
+        Jump();
     }
 
     private void Move()
@@ -119,12 +127,23 @@ public class PlayerController : ICharacter
             topAnimator.SetInteger("AnimState", (int)PlayerMovementState.IDLE);
             botAnimator.SetInteger("AnimState", (int)PlayerMovementState.IDLE);
         }
+    }
 
-        if ((joystick.Vertical > verticalSensitivity) && cumulativeJumpForce < maxJumpForce)
+    public void Jump()
+    {
+        onJump.Invoke();
+
+        // Should not be possible to jump again when falling
+        if ((joystick.Vertical > verticalSensitivity) && cumulativeJumpForce < maxJumpForce && !isFalling)
         {
             // jump
             rigidbody2d.AddForce(Vector2.up * verticalForce);
             cumulativeJumpForce += verticalForce;
+        }
+        // Character should start falling when the joystick is released
+        else if (joystick.Vertical < verticalSensitivity && !isGrounded)
+        {
+            isFalling = true;
         }
 
         if (isGrounded)
@@ -136,6 +155,8 @@ public class PlayerController : ICharacter
             botAnimator.SetBool("IsGrounded", false);
         }
 
+        // Not checking when max force reached because there is additional upward velocity after reaching max jump force
+        // Point where character starts falling
         // Figure out fall distance
         if (rigidbody2d.velocity.y <= fallVelocityThreshold && !isGrounded)
         {
@@ -156,9 +177,11 @@ public class PlayerController : ICharacter
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        // The velocity check is to make sure that the player can't jump off a platform on the way up
         if (other.gameObject.CompareTag("Platform") && rigidbody2d.velocity.y <= fallVelocityThreshold)
         {
             isGrounded = true;
+            isFalling = false;
             cumulativeJumpForce = 0;
 
             // Fall damage

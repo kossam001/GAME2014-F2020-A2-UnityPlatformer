@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 8187512381516102248}
   - component: {fileID: 8187512381516102250}
   m_Layer: 0
-  m_Name: FallingRock
-  m_TagString: Untagged
+  m_Name: Rock
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,3 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b93b966d68623b642aa3c48e0d6ba1f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
+  shouldDeactivateOffscreen: 1
+  objType: 0
+  hits: 5

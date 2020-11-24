@@ -7286,7 +7286,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &291317367
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17823,6 +17823,7 @@ MonoBehaviour:
   player: {fileID: 1423521904}
   playerScore: 100
   playerHeart: 0
+  skills: []
   onStatUpdated:
     m_PersistentCalls:
       m_Calls: []
@@ -18329,6 +18330,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 0}
   isCollapsing: 0
+  collapsingPeriod: 1
+  resetDelay: 3
 --- !u!1 &1121499097
 GameObject:
   m_ObjectHideFlags: 0
@@ -19325,11 +19328,22 @@ MonoBehaviour:
   weapon: {fileID: 384109961}
   upperBody: {fileID: 1295411268}
   lowerBody: {fileID: 564852651}
+  rigidbody2d: {fileID: 0}
   isGrounded: 0
+  isFalling: 0
   fallVelocityThreshold: 1
   cumulativeJumpForce: 0
   maxJumpForce: 600
   totalFallDistance: 0
+  onAttack:
+    m_PersistentCalls:
+      m_Calls: []
+  onJump:
+    m_PersistentCalls:
+      m_Calls: []
+  onMove:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1423521910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23436,11 +23450,11 @@ PrefabInstance:
       objectReference: {fileID: 1423521907}
     - target: {fileID: 8187512381516102247, guid: 10b436e36b10f38438d4ae8a76feb333, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.39485
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8187512381516102247, guid: 10b436e36b10f38438d4ae8a76feb333, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30.14
+      value: 9.5
       objectReference: {fileID: 0}
     - target: {fileID: 8187512381516102247, guid: 10b436e36b10f38438d4ae8a76feb333, type: 3}
       propertyPath: m_LocalPosition.z
