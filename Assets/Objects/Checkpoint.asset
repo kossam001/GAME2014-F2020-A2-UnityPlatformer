@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60a1dd7a86e38484087b05b7897af949, type: 3}
-  m_Name: DoubleJump
+  m_Script: {fileID: 11500000, guid: d609fb85eb7d8e24facaff6f816a84df, type: 3}
+  m_Name: Checkpoint
   m_EditorClassIdentifier: 
-  isActiveSkill: 0
+  isActiveSkill: 1
   owner: {fileID: 0}
-  cost: 5
+  costLabel: {fileID: 0}
+  cost: 0
+  repawnPointTemplate: {fileID: 2866683754074284751, guid: 79c70f1ca27dc734793e1bd5d081e50e, type: 3}

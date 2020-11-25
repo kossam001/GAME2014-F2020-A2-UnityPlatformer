@@ -2,7 +2,7 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-22
+ * Last Modified: 2020-11-24
  * 
  * Used to generalize all non-static elements in the game and have them share common functionality.
  * 
@@ -10,6 +10,7 @@
  * 2020-11-22: All dynamic objects should be resetable.
  * 2020-11-22: Spawnable objects should despawn when outside of player's activity zone.
  * 2020-11-22: Spawns different types of falling objects.
+ * 2020-11-24: Changed Despawn to virtual so it can be overwritten in PlayerController.
  */
 
 using System.Collections;
@@ -39,7 +40,7 @@ public abstract class SpawnableObject : MonoBehaviour
         }
     }
 
-    public void Despawn()
+    public virtual void Despawn()
     {
         gameObject.SetActive(false);
         SpawnManager.Instance.RetrieveDead(gameObject);

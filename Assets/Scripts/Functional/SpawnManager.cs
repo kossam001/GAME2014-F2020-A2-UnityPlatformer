@@ -161,6 +161,9 @@ public class SpawnManager : MonoBehaviour
 
     public void RetrieveDead(GameObject deadObject)
     {
-        fallingObjects.Add(deadObject.GetComponent<FallingObject>());
+        if (deadObject.GetComponent<FallingObject>() != null)
+        {
+            fallingObjects.Add(deadObject.GetComponent<FallingObject>());
+        }
     }
 }

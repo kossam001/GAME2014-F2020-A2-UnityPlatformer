@@ -2,16 +2,18 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-23
+ * Last Modified: 2020-11-24
  * 
  * A skill to allow player to jump again when in the air.
  * 
  * 2020-11-23: Added this script.
+ * 2020-11-24: Added additional management functions.
  */
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "DoubleJump", menuName = "Skills/DoubleJump")]
 public class DoubleJump : ISkill
@@ -22,14 +24,29 @@ public class DoubleJump : ISkill
     public override void Attach(GameObject _owner)
     {
         owner = _owner;
-
-        playerController = owner.GetComponent<PlayerController>();
-        playerController.onJump.AddListener(SkillUse);
     }
 
     public override void DeductCost()
     {
-        throw new System.NotImplementedException();
+        GameManager.Instance.UpdateHealth(-cost, 0);
+    }
+
+    public override void Detach()
+    {
+        playerController.onJump.RemoveListener(SkillUse);
+    }
+
+    public override void Initialize()
+    {
+        playerController = owner.GetComponent<PlayerController>();
+        playerController.onJump.AddListener(SkillUse);
+
+        SetCostLabel();
+    }
+
+    public override void SetCostLabel()
+    {
+        costLabel.text = cost.ToString();
     }
 
     public override void SkillUse()
@@ -41,6 +58,8 @@ public class DoubleJump : ISkill
             playerController.totalFallDistance = 0; // Reset fall damage calculation
             playerController.cumulativeJumpForce = 0;
             jumpCount++;
+
+            DeductCost();
         }
         else if (jumpCount > 0 && playerController.isGrounded)
         {

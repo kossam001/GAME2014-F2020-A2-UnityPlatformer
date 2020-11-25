@@ -211,6 +211,11 @@ public class PlayerController : ICharacter
         rigidbody2d.AddForce(knockbackForce * (5 * ((GameManager.Instance.UpdateHealth(-pointGain, heartGain) - heartGain) / 100)));
     }
 
+    public override void Despawn()
+    {
+        Reset();
+    }
+
     public override void Reset()
     {
         GameManager.Instance.ResetPlayer();
