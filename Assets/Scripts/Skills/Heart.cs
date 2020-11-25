@@ -18,6 +18,8 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "Heart", menuName = "Skills/Heart")]
 public class Heart : ISkill
 {
+    Button button;
+
     public override void Attach(GameObject _owner)
     {
         owner = _owner;
@@ -29,6 +31,7 @@ public class Heart : ISkill
 
     public override void Detach()
     {
+        Destroy(button.gameObject.GetComponent<Heal>());
     }
 
     public override void Initialize()
@@ -45,8 +48,9 @@ public class Heart : ISkill
     {
     }
 
-    public override void AttachButton(Button button)
+    public override void AttachButton(Button _button)
     {
+        button = _button;
         Heal healScript = button.gameObject.AddComponent<Heal>();
     }
 }

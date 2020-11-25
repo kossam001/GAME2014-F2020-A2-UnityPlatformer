@@ -2,11 +2,12 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-24
+ * Last Modified: 2020-11-25
  * 
  * Method by which players acquire skills - by using item pickups.
  * 
  * 2020-11-24: Added this script.
+ * 2020-11-25: There is a fixed number of buttons, no need to instantiate new ones.
  */
 
 using System.Collections;
@@ -17,8 +18,8 @@ using TMPro;
 
 public class Pickup : MonoBehaviour
 {
-    public Canvas skillPanel; // Has slots for the skills
-    public Canvas erasePanel;
+    //public Canvas skillPanel; // Has slots for the skills
+    public GameObject[] buttons;
     public ISkill skill;
     public GameObject skillButtonTemplate;
 
@@ -26,25 +27,14 @@ public class Pickup : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Transform slot;
-
-            for (int i = 0; i < skillPanel.gameObject.transform.childCount; i++)
+            foreach (GameObject button in buttons)
             {
-                // Find an empty slot
-                slot = skillPanel.gameObject.transform.GetChild(i);
-                if (slot.childCount <= 0)
+                if (!button.activeInHierarchy)
                 {
                     gameObject.SetActive(false);
-                    GameObject button = CreateSkillButton(other.gameObject);
-                    button.transform.SetParent(slot);
+                    button.SetActive(true);
+                    BindSkill(button, other.gameObject);
 
-                    // Pass skill reference to erase skill panel
-                    GameObject skillEraseButton = erasePanel.transform.GetChild(i).gameObject;
-                    skillEraseButton.GetComponent<DeleteSkill>().skill = skill;
-
-                    // Reposition the button
-                    RectTransform buttonTransform = button.GetComponent<RectTransform>();
-                    buttonTransform.anchoredPosition = new Vector3(0, button.GetComponent<RectTransform>().anchoredPosition.y);
                     break;
                 }
             }
@@ -76,5 +66,26 @@ public class Pickup : MonoBehaviour
         }
 
         return skillButton;
+    }
+
+    public void BindSkill(GameObject skillButton, GameObject owner)
+    {
+        // Replace skill button image with the pickup icon.
+        skillButton.GetComponent<Image>().sprite = GetComponent<SpriteRenderer>().sprite;
+
+        // Set the cost of the skill on the button
+        skill.costLabel = skillButton.GetComponentInChildren<TMP_Text>();
+
+        // Set owner of the skill
+        skill.owner = owner;
+        skill.Initialize();
+
+        // Set button use for skill
+        if (skill.isActiveSkill)
+        {
+            skill.AttachButton(skillButton.GetComponent<Button>());
+        }
+
+        skillButton.GetComponent<RegisteredSkill>().skill = skill;
     }
 }
