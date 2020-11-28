@@ -16,6 +16,7 @@
  * 2020-11-22: Added reset.
  * 2020-11-23: Added collider reset for better platform detection.
  * 2020-11-28: Added animation.
+ * 2020-11-28: Added random character customization.
  */
 
 using System.Collections;
@@ -47,14 +48,29 @@ public class GroundEnemyController : ICharacter
     private Vector3 startingPosition;
 
     [SerializeField]
-    private Animator[] characterAnimators;
+    private List<Animator> mandatoryCharacterAnimators;
+    [SerializeField]
+    private List<Animator> optionalCharacterAnimators;
+    [SerializeField]
+    private List<SwappablePart> swappableCharacterAnimators;
+
+    [System.Serializable]
+    public class SwappablePart
+    {
+        public List<Animator> options;
+    }
+
+    [SerializeField]
+    private List<Animator> allAnimators;
 
     // Start is called before the first frame update
     void Awake()
     {
         startingPosition = transform.position;
 
-        foreach (Animator bodyPart in characterAnimators)
+        CharacterConfiguration();
+
+        foreach (Animator bodyPart in allAnimators)
         {
             bodyPart.SetInteger("AnimState", (int)PlayerMovementState.RUN);
         }
@@ -117,14 +133,8 @@ public class GroundEnemyController : ICharacter
                 {
                     attackComponent.attack();
                     attackDelay = maxAttackDelay;
-
-                    // Play animation
-                    //headAnimator.SetTrigger("Attack");
-                    //torsoAnimator.SetTrigger("Attack");
-                    //rightArmAnimator.SetTrigger("Attack");
-                    //leftArmAnimator.SetTrigger("Attack");
-                    //weaponAnimator.SetTrigger("Attack");
-                    foreach (Animator bodyPart in characterAnimators)
+                    
+                    foreach (Animator bodyPart in allAnimators)
                     {
                         bodyPart.SetTrigger("Attack");
                     }
@@ -166,6 +176,41 @@ public class GroundEnemyController : ICharacter
         {
             GameManager.Instance.UpdateHealth(Random.Range(10, 50), 0);
             Despawn();
+        }
+    }
+
+    public void CharacterConfiguration()
+    {
+        allAnimators.AddRange(mandatoryCharacterAnimators);
+
+        foreach (Animator part in optionalCharacterAnimators)
+        {
+            if (Random.Range(0.0f, 1.0f) < 0.5f)
+            {
+                part.gameObject.SetActive(true);
+                allAnimators.Add(part);
+            }
+            else
+            {
+                part.gameObject.SetActive(false);
+            }
+        }
+
+        foreach (SwappablePart part in swappableCharacterAnimators)
+        {
+            foreach (Animator option in part.options)
+            {
+                if (Random.Range(0.0f, 1.0f) < 0.5f)
+                {
+                    option.gameObject.SetActive(true);
+                    allAnimators.Add(option);
+                    return;
+                }
+            }
+
+            // If no part is selected, default to one.
+            part.options[0].gameObject.SetActive(true);
+            allAnimators.Add(part.options[0]);
         }
     }
 
