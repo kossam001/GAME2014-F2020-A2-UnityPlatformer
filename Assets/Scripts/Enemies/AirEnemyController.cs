@@ -2,12 +2,13 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-26
+ * Last Modified: 2020-11-28
  * 
  * AI for air-based enemies.
  * 
  * 2020-11-26: Added this script.
  * 2020-11-26: Added attack, stats, movement.
+ * 2020-11-28: Added animations.
  */
 
 using System.Collections;
@@ -27,6 +28,8 @@ public class AirEnemyController : ICharacter
     public float speed = 10;
 
     private Rigidbody2D rigidbody2d;
+    [SerializeField]
+    private Animator bodyAnimator;
 
     // Start is called before the first frame update
     void Start()
@@ -71,6 +74,7 @@ public class AirEnemyController : ICharacter
     {
         if (!projectile.gameObject.activeInHierarchy)
         {
+            bodyAnimator.SetTrigger("Attack");
             projectile.Shoot((playerTransform.position - transform.position).normalized);
         }
     }

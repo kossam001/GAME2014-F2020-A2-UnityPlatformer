@@ -10,6 +10,7 @@
  * 2020-11-22: Spawns rocks that drops from above the player and despawns some range away from the player.
  *             Despawned rocks gets returned to SpawnManager to be reused.
  * 2020-11-28: Spawner does not manage fixed spawns.  Airborne enemies spawn every 30 seconds of despawning.
+ * 2020-11-28: Fixed bat spawning issue.  It starts spawned in, and eventually teleports.
  */
 
 using System.Collections;
@@ -113,7 +114,9 @@ public class SpawnManager : MonoBehaviour
         }
 
         airSpawnEnemies = new Queue<GameObject>();
-        airSpawnEnemies.Enqueue(Instantiate(airEnemyPrefab));
+        GameObject airborneEnemy = Instantiate(airEnemyPrefab);
+        airborneEnemy.SetActive(false);
+        airSpawnEnemies.Enqueue(airborneEnemy);
     }
 
     // Update is called once per frame
@@ -126,7 +129,7 @@ public class SpawnManager : MonoBehaviour
     public void SpawnAirEnemies()
     {
         airEnemySpawnTimer -= Time.deltaTime;
-
+        
         if (airSpawnEnemies.Count > 0 && airEnemySpawnTimer <= 0)
         {
             GameObject enemy = airSpawnEnemies.Dequeue();
