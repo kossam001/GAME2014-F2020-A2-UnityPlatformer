@@ -2,7 +2,7 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-23
+ * Last Modified: 2020-11-26
  * 
  * Allows player to control the character.
  * 
@@ -17,6 +17,7 @@
  * 2020-11-22: Syncing attack animation with attack collider.
  * 2020-11-22: Added reset.
  * 2020-11-23: Adding events to player actions.
+ * 2020-11-26: Holding down on the joystick brings up skill menu.
  */
 
 using System.Collections;
@@ -61,6 +62,9 @@ public class PlayerController : ICharacter
     public UnityEvent onJump;
     public UnityEvent onMove;
 
+    public GameObject skillPanel;
+    public GameObject erasePanel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,6 +94,7 @@ public class PlayerController : ICharacter
     {
         Move();
         Jump();
+        DisplaySkills();
     }
 
     private void Move()
@@ -126,6 +131,20 @@ public class PlayerController : ICharacter
             weaponAnimator.SetInteger("AnimState", (int)PlayerMovementState.IDLE);
             topAnimator.SetInteger("AnimState", (int)PlayerMovementState.IDLE);
             botAnimator.SetInteger("AnimState", (int)PlayerMovementState.IDLE);
+        }
+    }
+
+    public void DisplaySkills()
+    {
+        if (joystick.Vertical < -verticalSensitivity * 1.1f)
+        {
+            skillPanel.GetComponent<Canvas>().enabled = true;
+            erasePanel.GetComponent<Canvas>().enabled = true;
+        }
+        else
+        {
+            skillPanel.GetComponent<Canvas>().enabled = false;
+            erasePanel.GetComponent<Canvas>().enabled = false;
         }
     }
 

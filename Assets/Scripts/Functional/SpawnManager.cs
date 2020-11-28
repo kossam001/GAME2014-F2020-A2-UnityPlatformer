@@ -2,13 +2,14 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-22
+ * Last Modified: 2020-11-28
  * 
  * Handles spawning of non-static objects.
  * 
  * 2020-11-22: Added this script.
  * 2020-11-22: Spawns rocks that drops from above the player and despawns some range away from the player.
  *             Despawned rocks gets returned to SpawnManager to be reused.
+ * 2020-11-28: Spawner does not manage fixed spawns.  Airborne enemies spawn every 30 seconds of despawning.
  */
 
 using System.Collections;
@@ -33,7 +34,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    public GameObject fixedEnemyPrefab;
+    public GameObject airEnemyPrefab;
     public GameObject fallingEnemyPrefab;
     public GameObject rockPrefab;
     public GameObject pointsPrefab;
@@ -52,7 +53,9 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private List<FallingObject> fallingObjects;
     [SerializeField]
-    private Queue<GameObject> fixedSpawnEnemies;
+    private Queue<GameObject> airSpawnEnemies;
+
+    private float airEnemySpawnTimer = 30;
 
     // Start is called before the first frame update
     void Start()
@@ -108,12 +111,35 @@ public class SpawnManager : MonoBehaviour
 
             fallingObjects.Add(fallingComponent);
         }
+
+        airSpawnEnemies = new Queue<GameObject>();
+        airSpawnEnemies.Enqueue(Instantiate(airEnemyPrefab));
     }
 
     // Update is called once per frame
     void Update()
     {
         DropObjects();
+        SpawnAirEnemies();
+    }
+
+    public void SpawnAirEnemies()
+    {
+        airEnemySpawnTimer -= Time.deltaTime;
+
+        if (airSpawnEnemies.Count > 0 && airEnemySpawnTimer <= 0)
+        {
+            GameObject enemy = airSpawnEnemies.Dequeue();
+
+            Vector3 spawnRange = new Vector3(Random.Range(playerTransform.position.x - spawnHorizontalRange,
+                playerTransform.position.x + spawnHorizontalRange),
+                Random.Range(playerTransform.position.y - spawnHeight,
+                playerTransform.position.y + spawnHeight));
+
+            enemy.transform.position = spawnRange;
+
+            enemy.GetComponent<AirEnemyController>().Reset();
+        }
     }
 
     public void DropObjects()
@@ -164,6 +190,11 @@ public class SpawnManager : MonoBehaviour
         if (deadObject.GetComponent<FallingObject>() != null)
         {
             fallingObjects.Add(deadObject.GetComponent<FallingObject>());
+        }
+        else if (deadObject.GetComponent<AirEnemyController>() != null)
+        {
+            airSpawnEnemies.Enqueue(deadObject);
+            airEnemySpawnTimer = 30;
         }
     }
 }

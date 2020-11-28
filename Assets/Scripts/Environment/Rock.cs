@@ -2,7 +2,7 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-23
+ * Last Modified: 2020-11-26
  * 
  * Rock behaviour.
  * 
@@ -10,6 +10,7 @@
  * 2020-11-22: Moved damage to falling object.
  * 2020-11-22: Added reset.
  * 2020-11-23: Rocks are obstacles now.
+ * 2020-11-26: Rocks do knockback.
  */
 
 using System.Collections;
@@ -18,6 +19,7 @@ using UnityEngine;
 
 public class Rock : SpawnableObject
 {
+    public Vector2 knockbackForce = new Vector2(100, 0);
     public int hits = 5;
     public int pointDamage = 10;
     public int heartDamage = 10;
@@ -72,7 +74,7 @@ public class Rock : SpawnableObject
                 other.GetContact(0).normal.y > 0 &&
                 !other.collider.isTrigger)
             {
-                other.gameObject.GetComponent<ICharacter>().UpdateHealth(pointDamage, heartDamage, Vector3.zero);
+                other.gameObject.GetComponent<ICharacter>().UpdateHealth(pointDamage, heartDamage, knockbackForce * new Vector2(other.transform.localScale.x, 1));
             }
         }
     }

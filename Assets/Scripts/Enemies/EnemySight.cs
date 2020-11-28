@@ -2,12 +2,13 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-16
+ * Last Modified: 2020-11-26
  * 
  * Logic for enemy sight triggers.
  * 
  * 2020-11-16: Added this script.
  * 2020-11-16: If the enemy sees the player, raise a flag and report distance between enemy and player.
+ * 2020-11-26: Fixed bug where enemy does not unsee player.
  */
 
 using System.Collections;
@@ -26,6 +27,14 @@ public class EnemySight : MonoBehaviour
         {
             seesPlayer = true;
             distanceToPlayer = Vector2.Distance(collision.gameObject.transform.position, transform.parent.transform.position);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            seesPlayer = false;
         }
     }
 }
