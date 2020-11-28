@@ -2,7 +2,7 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-23
+ * Last Modified: 2020-11-28
  * 
  * AI for land-based enemies.
  * 
@@ -15,6 +15,7 @@
  * 2020-11-22: Adjusting attack spam.
  * 2020-11-22: Added reset.
  * 2020-11-23: Added collider reset for better platform detection.
+ * 2020-11-28: Added animation.
  */
 
 using System.Collections;
@@ -45,10 +46,18 @@ public class GroundEnemyController : ICharacter
 
     private Vector3 startingPosition;
 
+    [SerializeField]
+    private Animator[] characterAnimators;
+
     // Start is called before the first frame update
     void Awake()
     {
         startingPosition = transform.position;
+
+        foreach (Animator bodyPart in characterAnimators)
+        {
+            bodyPart.SetInteger("AnimState", (int)PlayerMovementState.RUN);
+        }
 
         objType = EnumSpawnObjectType.AI;
 
@@ -108,6 +117,17 @@ public class GroundEnemyController : ICharacter
                 {
                     attackComponent.attack();
                     attackDelay = maxAttackDelay;
+
+                    // Play animation
+                    //headAnimator.SetTrigger("Attack");
+                    //torsoAnimator.SetTrigger("Attack");
+                    //rightArmAnimator.SetTrigger("Attack");
+                    //leftArmAnimator.SetTrigger("Attack");
+                    //weaponAnimator.SetTrigger("Attack");
+                    foreach (Animator bodyPart in characterAnimators)
+                    {
+                        bodyPart.SetTrigger("Attack");
+                    }
                 }
             }
         }
