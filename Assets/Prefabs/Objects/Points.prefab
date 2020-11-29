@@ -230,3 +230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c29d293d5b55044b5463b31a62a594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
+  shouldDeactivateOffscreen: 1
+  objType: 0

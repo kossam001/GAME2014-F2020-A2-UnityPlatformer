@@ -16,5 +16,10 @@ using UnityEngine;
 
 public abstract class ICharacter : SpawnableObject
 {
-    public abstract void UpdateHealth(int pointGain, int heartGain, Vector2 knockbackForce);
+    public AudioClip hitSound;
+    public AudioClip boostSound;
+    public AudioClip attackSound;
+    public AudioSource audioPlayer;
+
+    public abstract void UpdateHealth(int pointLoss, int heartGain, Vector2 knockbackForce);
 }

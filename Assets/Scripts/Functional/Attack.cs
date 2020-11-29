@@ -32,6 +32,9 @@ public class Attack : MonoBehaviour
     public int pointDamage = 10;
     public int heartDamage = 10;
 
+    public AudioSource audioPlayer;
+    public AudioClip hitSound;
+
     private void Awake()
     {
         OriginalPosition = transform.localPosition;
@@ -44,6 +47,11 @@ public class Attack : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<ICharacter>().UpdateHealth(pointDamage, heartDamage, knockbackForce * direction);
+        }
+        else if (collision.gameObject.GetComponent<Rock>() || collision.gameObject.GetComponent<Tombstone>())
+        {
+            audioPlayer.clip = hitSound;
+            audioPlayer.Play();
         }
     }
 

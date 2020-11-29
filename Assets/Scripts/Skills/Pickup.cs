@@ -31,9 +31,9 @@ public class Pickup : MonoBehaviour
             {
                 if (!button.activeInHierarchy)
                 {
+                    BindSkill(button, other.gameObject);
                     gameObject.SetActive(false);
                     button.SetActive(true);
-                    BindSkill(button, other.gameObject);
 
                     break;
                 }

@@ -82,6 +82,7 @@ public class FallingObject : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Enemy"))
             {
+                GetComponent<AudioSource>().Play();
                 other.gameObject.GetComponent<ICharacter>().UpdateHealth(pointDamage, heartDamage, knockbackForce * -Mathf.Sign(other.gameObject.transform.localScale.x));
             }
         }

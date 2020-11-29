@@ -65,6 +65,8 @@ public class PlayerController : ICharacter
     public GameObject skillPanel;
     public GameObject erasePanel;
 
+    public AudioClip jumpSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,6 +79,8 @@ public class PlayerController : ICharacter
         weaponAnimator = weapon.GetComponent<Animator>();
         topAnimator = upperBody.GetComponent<Animator>();
         botAnimator = lowerBody.GetComponent<Animator>();
+
+        audioPlayer = GetComponent<AudioSource>();
 
         StartCoroutine(FindGameManager());
     }
@@ -94,7 +98,7 @@ public class PlayerController : ICharacter
     {
         Move();
         Jump();
-        DisplaySkills();
+        //DisplaySkills();
     }
 
     private void Move()
@@ -155,6 +159,13 @@ public class PlayerController : ICharacter
         // Should not be possible to jump again when falling
         if ((joystick.Vertical > verticalSensitivity) && cumulativeJumpForce < maxJumpForce && !isFalling)
         {
+            // Play sound once at the beginning of a jump
+            if (isGrounded)
+            {
+                audioPlayer.clip = jumpSound;
+                audioPlayer.Play();
+            }
+
             // jump
             rigidbody2d.AddForce(Vector2.up * verticalForce);
             cumulativeJumpForce += verticalForce;
@@ -187,6 +198,9 @@ public class PlayerController : ICharacter
     {
         if (attack.activeTime < 0)
         {
+            audioPlayer.clip = attackSound;
+            audioPlayer.Play();
+
             attack.attack();
             armAnimator.SetTrigger("Attack");
             weaponAnimator.SetTrigger("Attack");
@@ -225,9 +239,20 @@ public class PlayerController : ICharacter
         GetComponent<Collider2D>().enabled = true;
     }
 
-    public override void UpdateHealth(int pointGain, int heartGain, Vector2 knockbackForce)
+    public override void UpdateHealth(int pointLoss, int heartGain, Vector2 knockbackForce)
     {
-        rigidbody2d.AddForce(knockbackForce * (5 * ((GameManager.Instance.UpdateHealth(-pointGain, heartGain) - heartGain) / 100)));
+        if (pointLoss > 0)
+        {
+            audioPlayer.clip = hitSound;
+            audioPlayer.Play();
+        }
+        else
+        {
+            audioPlayer.clip = boostSound;
+            audioPlayer.Play();
+        }
+
+        rigidbody2d.AddForce(knockbackForce * (5 * ((GameManager.Instance.UpdateHealth(-pointLoss, heartGain) - heartGain) / 100)));
     }
 
     public override void Despawn()

@@ -163,6 +163,17 @@ public class GroundEnemyController : ICharacter
 
     public override void UpdateHealth(int pointLoss, int heartGain, Vector2 knockbackForce)
     {
+        if (pointLoss > 0)
+        {
+            audioPlayer.clip = hitSound;
+            audioPlayer.Play();
+        }
+        else
+        {
+            audioPlayer.clip = boostSound;
+            audioPlayer.Play();
+        }
+
         // Turn around when hit from behind
         if (Mathf.Sign(knockbackForce.x) == Mathf.Sign(direction))
         {

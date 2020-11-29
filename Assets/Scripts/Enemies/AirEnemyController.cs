@@ -85,10 +85,21 @@ public class AirEnemyController : ICharacter
         gameObject.SetActive(true);
     }
 
-    public override void UpdateHealth(int pointGain, int heartGain, Vector2 knockbackForce)
+    public override void UpdateHealth(int pointLoss, int heartGain, Vector2 knockbackForce)
     {
+        if (pointLoss > 0)
+        {
+            audioPlayer.clip = hitSound;
+            audioPlayer.Play();
+        }
+        else
+        {
+            audioPlayer.clip = boostSound;
+            audioPlayer.Play();
+        }
+
         rigidbody2d.AddForce(knockbackForce);
-        soulPoints -= pointGain;
+        soulPoints -= pointLoss;
 
         if (soulPoints <= 0)
         {
