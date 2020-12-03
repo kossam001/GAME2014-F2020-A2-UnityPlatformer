@@ -228,14 +228,13 @@ public class PlayerController : ICharacter
             cumulativeJumpForce = 0;
 
             // Fall damage
-            int fallDamage = -(int)Mathf.Min(maxJumpForce * 1.5f / rigidbody2d.gravityScale + totalFallDistance, 0);
+            int fallDamage = -(int)Mathf.Min(maxJumpForce + totalFallDistance, 0);
             // Stop sound effects from continously playing
             if (fallDamage > 0)
             {
                 UpdateHealth(fallDamage, 0, Vector2.zero);
+                totalFallDistance = 0;
             }
-
-            totalFallDistance = 0;
         }
     }
 

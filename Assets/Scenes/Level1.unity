@@ -19731,7 +19731,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -19781,9 +19781,9 @@ MonoBehaviour:
   joystick: {fileID: 192101810}
   attack: {fileID: 928309134}
   horizontalSensitivity: 0.1
-  horizontalForce: 700
+  horizontalForce: 300
   verticalSensitivity: 0.5
-  verticalForce: 100
+  verticalForce: 50
   arm: {fileID: 568537683}
   weapon: {fileID: 384109961}
   upperBody: {fileID: 1295411268}
@@ -19793,7 +19793,7 @@ MonoBehaviour:
   isFalling: 0
   fallVelocityThreshold: 1
   cumulativeJumpForce: 0
-  maxJumpForce: 900
+  maxJumpForce: 450
   totalFallDistance: 0
   onAttack:
     m_PersistentCalls:
