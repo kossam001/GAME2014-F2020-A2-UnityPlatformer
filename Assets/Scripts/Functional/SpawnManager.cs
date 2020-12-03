@@ -2,7 +2,7 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-28
+ * Last Modified: 2020-11-30
  * 
  * Handles spawning of non-static objects.
  * 
@@ -11,6 +11,7 @@
  *             Despawned rocks gets returned to SpawnManager to be reused.
  * 2020-11-28: Spawner does not manage fixed spawns.  Airborne enemies spawn every 30 seconds of despawning.
  * 2020-11-28: Fixed bat spawning issue.  It starts spawned in, and eventually teleports.
+ * 2020-11-30: Added fixed enemy spawning.
  */
 
 using System.Collections;
@@ -55,8 +56,11 @@ public class SpawnManager : MonoBehaviour
     private List<FallingObject> fallingObjects;
     [SerializeField]
     private Queue<GameObject> airSpawnEnemies;
+    [SerializeField]
+    private List<GameObject> fixedSpawns;
 
     private float airEnemySpawnTimer = 30;
+    private float enemySpawnTimer = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -123,13 +127,14 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
         DropObjects();
-        SpawnAirEnemies();
+        SpawnEnemies();
     }
 
-    public void SpawnAirEnemies()
+    public void SpawnEnemies()
     {
         airEnemySpawnTimer -= Time.deltaTime;
-        
+        enemySpawnTimer -= Time.deltaTime;
+
         if (airSpawnEnemies.Count > 0 && airEnemySpawnTimer <= 0)
         {
             GameObject enemy = airSpawnEnemies.Dequeue();
@@ -142,6 +147,33 @@ public class SpawnManager : MonoBehaviour
             enemy.transform.position = spawnRange;
 
             enemy.GetComponent<AirEnemyController>().Reset();
+        }
+
+        if (enemySpawnTimer <= 0)
+        {
+            foreach (GameObject enemy in fixedSpawns)
+            {
+                // Enemies below get despawned, so a negative distance should not spawn
+                float verticalDistance = enemy.transform.position.y - playerTransform.position.y;
+
+                if (!enemy.activeInHierarchy && verticalDistance <= 25)
+                {
+                    float horizontalDistance = Mathf.Abs(enemy.transform.position.x - playerTransform.position.x);
+
+                    if (verticalDistance >= -10 && horizontalDistance >= 20)
+                    {
+                        // Pick an enemy and respawn them
+                        enemy.GetComponent<GroundEnemyController>().Reset();
+
+                        // If respawn successful, break out of loop, otherwise try the next enemy.
+                        if (enemy.activeInHierarchy)
+                        {
+                            enemySpawnTimer = 5;
+                            return;
+                        }
+                    }
+                }
+            }
         }
     }
 

@@ -397,10 +397,10 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   shouldDeactivateOffscreen: 1
   objType: 3
-  hitSound: {fileID: 0}
-  boostSound: {fileID: 0}
-  attackSound: {fileID: 0}
-  audioPlayer: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: e1e30b903d012c44e9d75c133c04991e, type: 3}
+  boostSound: {fileID: 8300000, guid: 981d93b888378fb4fb9390a0e0b07af4, type: 3}
+  attackSound: {fileID: 8300000, guid: f7ca74a53395fd34f8a35b6b5f014cd6, type: 3}
+  audioPlayer: {fileID: 232668188249169137}
   detection: {fileID: 5143866294850200287}
   projectile: {fileID: 5143866294989420264}
   defaultPoints: 100

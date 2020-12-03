@@ -2,7 +2,7 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-26
+ * Last Modified: 2020-11-30
  * 
  * Allows player to control the character.
  * 
@@ -18,6 +18,7 @@
  * 2020-11-22: Added reset.
  * 2020-11-23: Adding events to player actions.
  * 2020-11-26: Holding down on the joystick brings up skill menu.
+ * 2020-11-30: Added player death.
  */
 
 using System.Collections;
@@ -68,8 +69,11 @@ public class PlayerController : ICharacter
     public AudioClip jumpSound;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        GameManager.Instance.player = gameObject;
+        GameManager.Instance.ResetPlayer();
+
         objType = EnumSpawnObjectType.PLAYER;
 
         playerTransform = transform;
@@ -83,6 +87,12 @@ public class PlayerController : ICharacter
         audioPlayer = GetComponent<AudioSource>();
 
         StartCoroutine(FindGameManager());
+    }
+
+    private void Start()
+    {
+        // So the stat labels display the initial value
+        GameManager.Instance.UpdateHealth(0, 0);
     }
 
     IEnumerator FindGameManager()
@@ -218,8 +228,13 @@ public class PlayerController : ICharacter
             cumulativeJumpForce = 0;
 
             // Fall damage
-            GameManager.Instance.UpdateHealth((int) Mathf.Min(maxJumpForce + totalFallDistance, 0), 0);
-            totalFallDistance = 0;
+            int fallDamage = -(int)Mathf.Min(maxJumpForce + totalFallDistance, 0);
+            // Stop sound effects from continously playing
+            if (fallDamage > 0)
+            {
+                UpdateHealth(fallDamage, 0, Vector2.zero);
+                totalFallDistance = 0;
+            }
         }
     }
 
@@ -253,15 +268,22 @@ public class PlayerController : ICharacter
         }
 
         rigidbody2d.AddForce(knockbackForce * (5 * ((GameManager.Instance.UpdateHealth(-pointLoss, heartGain) - heartGain) / 100)));
+
+        if (GameManager.Instance.playerScore <= 0)
+        {
+            GameManager.Instance.PlayerGameOver();
+        }
     }
 
     public override void Despawn()
     {
         Reset();
+        // Falling into the death plane does not reset this
+        totalFallDistance = 0;
     }
 
     public override void Reset()
     {
-        GameManager.Instance.ResetPlayer();
+        GameManager.Instance.PlayerGameOver();
     }
 }

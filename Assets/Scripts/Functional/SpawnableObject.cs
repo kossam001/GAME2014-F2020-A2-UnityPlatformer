@@ -2,7 +2,7 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-24
+ * Last Modified: 2020-11-30
  * 
  * Used to generalize all non-static elements in the game and have them share common functionality.
  * 
@@ -11,6 +11,7 @@
  * 2020-11-22: Spawnable objects should despawn when outside of player's activity zone.
  * 2020-11-22: Spawns different types of falling objects.
  * 2020-11-24: Changed Despawn to virtual so it can be overwritten in PlayerController.
+ * 2020-11-30: Added despawning of objects that are too high.
  */
 
 using System.Collections;
@@ -27,7 +28,9 @@ public abstract class SpawnableObject : MonoBehaviour
 
     private void Update()
     {
-        if (playerTransform != null && playerTransform.position.y - transform.position.y > 20 && shouldDeactivateOffscreen)
+        if (playerTransform != null && (playerTransform.position.y - transform.position.y > 20
+            || playerTransform.position.y - transform.position.y < -30)
+            && shouldDeactivateOffscreen)
         {
             GetComponent<SpawnableObject>().Despawn();
         }

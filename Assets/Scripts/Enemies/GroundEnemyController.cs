@@ -80,6 +80,8 @@ public class GroundEnemyController : ICharacter
         rigidbody2d = GetComponent<Rigidbody2D>();
         direction = 1;
         attackComponent = attackObject.GetComponent<Attack>();
+
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame

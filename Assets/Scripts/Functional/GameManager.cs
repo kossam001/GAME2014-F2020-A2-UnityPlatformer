@@ -2,7 +2,7 @@
  * 
  * Samuel Ko
  * 101168049
- * Last Modified: 2020-11-24
+ * Last Modified: 2020-11-30
  * 
  * Communications between different game components.
  * 
@@ -11,12 +11,14 @@
  * 2020-11-22: Calls event to update label.
  * 2020-11-22: Added a global access to player transform here
  * 2020-11-24: Implemented respawn mechanic.
+ * 2020-11-24: Added scene transition.
  */
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -38,7 +40,7 @@ public class GameManager : MonoBehaviour
     }
 
     public GameObject player;
-    public int playerScore = 100;
+    public int playerScore = 1000;
     public int playerHeart = 0;
 
     public Queue<GameObject> availableRespawnPoints;
@@ -61,7 +63,7 @@ public class GameManager : MonoBehaviour
         return playerHeart;
     }
 
-    public void ResetPlayer()
+    public void PlayerGameOver()
     {
         if (activeRespawnPoints.Count > 0)
         {
@@ -85,8 +87,15 @@ public class GameManager : MonoBehaviour
         // Game Over
         else
         {
-            player.SetActive(false);
+            availableRespawnPoints.Clear();
+            SceneManager.LoadScene("GameOver");
         }
+    }
+
+    public void ResetPlayer()
+    {
+        playerScore = 1000;
+        playerHeart = 0;
     }
 
     public Transform GetPlayerTransform()
