@@ -19,6 +19,7 @@
  * 2020-11-23: Adding events to player actions.
  * 2020-11-26: Holding down on the joystick brings up skill menu.
  * 2020-11-30: Added player death.
+ * 2020-12-03: Adjusting horizontal movement speed.
  */
 
 using System.Collections;
@@ -56,6 +57,7 @@ public class PlayerController : ICharacter
     public float fallVelocityThreshold = 1.0f;
     public float cumulativeJumpForce = 0;
     public float maxJumpForce = 1000;
+    public float maxHorizontalVelocity = 10;
     public float totalFallDistance = 0;
 
     // Events for passive skill use.
@@ -113,7 +115,7 @@ public class PlayerController : ICharacter
 
     private void Move()
     {
-        if (joystick.Horizontal > horizontalSensitivity)
+        if (joystick.Horizontal > horizontalSensitivity && rigidbody2d.velocity.x < maxHorizontalVelocity)
         {
             // move right
             rigidbody2d.AddForce(Vector2.right * horizontalForce * Time.deltaTime);
@@ -126,7 +128,7 @@ public class PlayerController : ICharacter
             topAnimator.SetInteger("AnimState", (int)PlayerMovementState.RUN);
             botAnimator.SetInteger("AnimState", (int)PlayerMovementState.RUN);
         }
-        else if (joystick.Horizontal < -horizontalSensitivity)
+        else if (joystick.Horizontal < -horizontalSensitivity && rigidbody2d.velocity.x > -maxHorizontalVelocity)
         {
             // move left
             rigidbody2d.AddForce(Vector2.left * horizontalForce * Time.deltaTime);
@@ -228,13 +230,14 @@ public class PlayerController : ICharacter
             cumulativeJumpForce = 0;
 
             // Fall damage
-            int fallDamage = -(int)Mathf.Min(maxJumpForce + totalFallDistance, 0);
+            int fallDamage = -(int)Mathf.Min(maxJumpForce * 1.5f / rigidbody2d.gravityScale + totalFallDistance, 0);
             // Stop sound effects from continously playing
             if (fallDamage > 0)
             {
                 UpdateHealth(fallDamage, 0, Vector2.zero);
-                totalFallDistance = 0;
             }
+
+            totalFallDistance = 0;
         }
     }
 
