@@ -26,6 +26,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Cinemachine;
 
 public class PlayerController : ICharacter
 {
@@ -70,6 +71,13 @@ public class PlayerController : ICharacter
 
     public AudioClip jumpSound;
 
+    public CinemachineVirtualCamera vcam1;
+    public CinemachineBasicMultiChannelPerlin perlin;
+    public float maxShakeTime;
+    public float shakeTimer;
+    public float shakeIntensity;
+    public bool isCameraShaking;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -88,6 +96,9 @@ public class PlayerController : ICharacter
 
         audioPlayer = GetComponent<AudioSource>();
 
+        maxShakeTime = 0.3f;
+        shakeTimer = maxShakeTime;
+
         StartCoroutine(FindGameManager());
     }
 
@@ -95,6 +106,9 @@ public class PlayerController : ICharacter
     {
         // So the stat labels display the initial value
         GameManager.Instance.UpdateHealth(0, 0);
+
+        vcam1 = FindObjectOfType<CinemachineVirtualCamera>();
+        perlin = vcam1.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
     IEnumerator FindGameManager()
@@ -111,6 +125,17 @@ public class PlayerController : ICharacter
         Move();
         Jump();
         //DisplaySkills();
+
+        if (isCameraShaking)
+        {
+            shakeTimer -= Time.deltaTime;
+            if (shakeTimer <= 0.0f)
+            {
+                perlin.m_AmplitudeGain = 0.0f;
+                isCameraShaking = false;
+                shakeTimer = maxShakeTime;
+            }
+        }
     }
 
     private void Move()
@@ -261,6 +286,7 @@ public class PlayerController : ICharacter
     {
         if (pointLoss > 0)
         {
+            ShakeCamera();
             audioPlayer.clip = hitSound;
             audioPlayer.Play();
         }
@@ -288,5 +314,11 @@ public class PlayerController : ICharacter
     public override void Reset()
     {
         GameManager.Instance.PlayerGameOver();
+    }
+
+    private void ShakeCamera()
+    {
+        perlin.m_AmplitudeGain = shakeIntensity;
+        isCameraShaking = true;
     }
 }

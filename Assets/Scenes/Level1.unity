@@ -19809,7 +19809,7 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   shouldDeactivateOffscreen: 1
   objType: 0
-  hitSound: {fileID: 8300000, guid: e1e30b903d012c44e9d75c133c04991e, type: 3}
+  hitSound: {fileID: 8300000, guid: 9ef5a03395bd6aa42bd6ca9b87004712, type: 3}
   boostSound: {fileID: 8300000, guid: 981d93b888378fb4fb9390a0e0b07af4, type: 3}
   attackSound: {fileID: 8300000, guid: 1eaea4c255026464ba2a046a70ec99ec, type: 3}
   audioPlayer: {fileID: 0}
@@ -19829,7 +19829,6 @@ MonoBehaviour:
   fallVelocityThreshold: 1
   cumulativeJumpForce: 0
   maxJumpForce: 900
-  cumulativeHorizontalForce: 0
   maxHorizontalVelocity: 7
   totalFallDistance: 0
   onAttack:
@@ -19843,7 +19842,13 @@ MonoBehaviour:
       m_Calls: []
   skillPanel: {fileID: 1010765416}
   erasePanel: {fileID: 1628847871}
-  jumpSound: {fileID: 8300000, guid: 1b0f59b417f527b47b1568d3b50a0251, type: 3}
+  jumpSound: {fileID: 8300000, guid: 323acbee8bd9b23418cf709e609ad5c1, type: 3}
+  vcam1: {fileID: 1630776072}
+  perlin: {fileID: 0}
+  maxShakeTime: 0.3
+  shakeTimer: 0
+  shakeIntensity: 5
+  isCameraShaking: 0
 --- !u!82 &1423521909
 AudioSource:
   m_ObjectHideFlags: 0
@@ -23590,10 +23595,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NoiseProfile: {fileID: 0}
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 1
-  m_FrequencyGain: 1
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 5
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1973608767
 GameObject:
