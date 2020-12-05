@@ -8,6 +8,7 @@
  * 
  * 2020-11-24: Added this script.
  * 2020-11-25: There is a fixed number of buttons, no need to instantiate new ones.
+ * 2020-12-05: Fixing sound not playing.
  */
 
 using System.Collections;
@@ -27,18 +28,28 @@ public class Pickup : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            GetComponent<AudioSource>().Play();
             foreach (GameObject button in buttons)
             {
                 if (!button.activeInHierarchy)
                 {
+                    DisablePickup();
+
                     BindSkill(button, other.gameObject);
-                    gameObject.SetActive(false);
                     button.SetActive(true);
 
                     break;
                 }
             }
         }
+    }
+
+    // Disabling the entire game object causes sound to not play, this is a workaround
+    void DisablePickup()
+    {
+        this.enabled = false;
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
     }
 
     public GameObject CreateSkillButton(GameObject owner)
