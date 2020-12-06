@@ -46,6 +46,8 @@ public class Boomerang : MonoBehaviour
     {
         gameObject.SetActive(true);
 
+        GetComponent<AudioSource>().Play();
+
         travelDirection = direction;
         transform.parent = null; // Unparent from the player so player transform does not affect boomerang motion
         isReturning = false;

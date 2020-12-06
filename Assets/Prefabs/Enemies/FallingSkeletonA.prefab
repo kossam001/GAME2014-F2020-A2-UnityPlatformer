@@ -54,6 +54,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2315347930416530704, guid: 5ad083f9fba044c47b5b15f509160a60, type: 3}
+      propertyPath: m_GravityScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315347930416530704, guid: 5ad083f9fba044c47b5b15f509160a60, type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2315347930416530705, guid: 5ad083f9fba044c47b5b15f509160a60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.8
@@ -106,6 +114,10 @@ PrefabInstance:
       propertyPath: hitSound
       value: 
       objectReference: {fileID: 8300000, guid: 9ef5a03395bd6aa42bd6ca9b87004712, type: 3}
+    - target: {fileID: 2315347930416530706, guid: 5ad083f9fba044c47b5b15f509160a60, type: 3}
+      propertyPath: speed
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 2315347930416530711, guid: 5ad083f9fba044c47b5b15f509160a60, type: 3}
       propertyPath: m_Name
       value: FallingSkeletonA

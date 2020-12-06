@@ -1014,7 +1014,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -1049,7 +1049,7 @@ MonoBehaviour:
   enemySight: {fileID: 1413130959}
   attackObject: {fileID: 1887871888}
   isTherePlatform: 0
-  speed: 500
+  speed: 1000
   direction: 1
   isInAir: 0
   attackRange: 1.5
