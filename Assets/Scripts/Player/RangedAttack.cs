@@ -35,16 +35,17 @@ public class RangedAttack : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // DynamicJoystick is hidden until the touch region is touched
-        if (reticleTransform.gameObject.activeInHierarchy)
+        if (reticleTransform.gameObject.activeInHierarchy && attackButton.interactable)
         {
             isAiming = true;
         }
         // On release of the DynamicJoystick, the reticle becomes in active again
         else if (!reticleTransform.gameObject.activeInHierarchy && isAiming)
         {
+            reticleTransform.parent.gameObject.SetActive(false);
             isAiming = false;
 
             // Reticle localPosition is the center of the screen, where the player is
@@ -56,6 +57,7 @@ public class RangedAttack : MonoBehaviour
 
     void PlayerWeaponReturned()
     {
+        reticleTransform.parent.gameObject.SetActive(true);
         weapon.SetActive(true);
         attackButton.interactable = true;
     }

@@ -48,11 +48,6 @@ public class Attack : MonoBehaviour
         {
             collision.gameObject.GetComponent<ICharacter>().UpdateHealth(pointDamage, heartDamage, knockbackForce * direction);
         }
-        else if (collision.gameObject.GetComponent<Rock>() || collision.gameObject.GetComponent<Tombstone>())
-        {
-            audioPlayer.clip = hitSound;
-            audioPlayer.Play();
-        }
     }
 
     private void Update()

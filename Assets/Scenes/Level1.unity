@@ -19341,6 +19341,9 @@ MonoBehaviour:
   knockbackForce: {x: 500, y: 0}
   pointDamage: 25
   heartDamage: 10
+  isReturning: 0
+  hasReturned: 0
+  distanceTravelled: 0
 --- !u!61 &1266955893
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19365,7 +19368,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.57, y: 0.64}
+  m_Size: {x: 0.75, y: 0.64}
   m_EdgeRadius: 0
 --- !u!212 &1266955894
 SpriteRenderer:

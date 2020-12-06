@@ -28,10 +28,18 @@ public class Boomerang : MonoBehaviour
     public int pointDamage = 25;
     public int heartDamage = 10;
 
+    [SerializeField]
     private bool isReturning = false;
+    [SerializeField]
     private bool hasReturned = false;
     private Vector3 travelDirection;
-    private float distanceTravelled = 0; 
+    [SerializeField]
+    private float distanceTravelled = 0;
+
+    private void Update()
+    {
+        transform.Rotate(0, 0, transform.eulerAngles.z + 1);
+    }
 
     // Throw in the given direction
     public IEnumerator Throw(Vector3 direction)
@@ -67,6 +75,7 @@ public class Boomerang : MonoBehaviour
         {
             hasReturned = true;
         }
+        
         else if (!other.gameObject.CompareTag("Player") && !other.gameObject.CompareTag("Functional"))
         {
             if (other.gameObject.CompareTag("Enemy"))
@@ -75,11 +84,15 @@ public class Boomerang : MonoBehaviour
                     Vector3.Scale(knockbackForce, new Vector3(Mathf.Sign(travelDirection.x), Mathf.Sign(travelDirection.y))));
             }
 
-            // Recalculate direction when colliding with something other than the player
-            travelDirection = (playerTransform.position - transform.position).normalized;
-            if (!isReturning)
+            // Allow boomerang to go through solid objects until it reaches max range
+            if (distanceTravelled >= range)
             {
-                StartCoroutine(ReturnToPlayer());
+                // Recalculate direction when colliding with something other than the player
+                travelDirection = (playerTransform.position - transform.position).normalized;
+                if (!isReturning)
+                {
+                    StartCoroutine(ReturnToPlayer());
+                }
             }
         }
     }

@@ -58,7 +58,7 @@ public class Projectile : MonoBehaviour
     public void Shoot(Vector3 _direction)
     {
         direction = _direction;
-        transform.rotation = Quaternion.AngleAxis(Vector2.Angle(Vector3.right, _direction) + 25, Vector3.forward);
+        transform.rotation = Quaternion.AngleAxis(Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x) + 25, Vector3.forward);
         transform.SetParent(null);
         gameObject.SetActive(true);
     }

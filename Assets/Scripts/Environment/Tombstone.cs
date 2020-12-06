@@ -36,6 +36,7 @@ public class Tombstone : SpawnableObject
         if (other.gameObject.CompareTag("Attack"))
         {
             hits--;
+            GetComponent<AudioSource>().Play();
 
             if (hits <= 0)
             {
