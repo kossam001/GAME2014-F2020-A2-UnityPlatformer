@@ -60,6 +60,9 @@ public class Projectile : MonoBehaviour
         direction = _direction;
         transform.rotation = Quaternion.AngleAxis(Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x) + 25, Vector3.forward);
         transform.SetParent(null);
+
+        // Make sure projectile scale is always positive after unparenting
+        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y);
         gameObject.SetActive(true);
     }
 

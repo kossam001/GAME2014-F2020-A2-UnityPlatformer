@@ -74,6 +74,9 @@ public class AirEnemyController : ICharacter
     {
         if (!projectile.gameObject.activeInHierarchy)
         {
+            audioPlayer.clip = attackSound;
+            audioPlayer.Play();
+
             bodyAnimator.SetTrigger("Attack");
             projectile.Shoot((playerTransform.position - transform.position).normalized);
         }
